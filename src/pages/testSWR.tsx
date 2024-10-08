@@ -42,7 +42,7 @@ export default function TestSWR() {
                 }
                 {error && response && <p>{String(response)}</p>}
                 {!isLoading && response && response.data && <AllTable headers={headers} rows={response.data} />}
-                <FormModal opened={isAddFormOpen} close={()=>setIsAddFormOpen(false)}/>
+                <FormModal opened={isAddFormOpen} close={()=>setIsAddFormOpen(false)} editData={null}/>
             </Box>
         </Layout>
     )

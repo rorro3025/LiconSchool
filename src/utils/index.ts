@@ -2,7 +2,8 @@
 import { useState } from 'react'
 
 interface SuccessResponse {
-  success: true }
+  success: true
+}
 
 interface FailResponse {
   success: false,
@@ -45,7 +46,7 @@ export const makeHTTPRequest = async (url: string, config: {
   try {
     const response = await fetch(url, applyConfig);
     const data = await response.json();
-    if(data.message!== 'Success') return {
+    if (data.message !== 'Success') return {
       success: false,
       message: data.message
     }
