@@ -5,7 +5,7 @@ import { IconHomeBitcoin } from '@tabler/icons-react'
 export default function Navbar() {
   const [opened, { toggle }] = useDisclosure();
   return (
-    <div>
+    <div style={{position: 'fixed'}}>
       <Burger opened={opened} onClick={toggle} aria-label="Toggle navigation" size={'sm'} />
       <Box style={{
         width: "200px",
