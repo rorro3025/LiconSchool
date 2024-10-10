@@ -6,4 +6,5 @@ export interface TermOwnerI {
 
 export interface EditTermOwnerI extends TermOwnerI {
     uuid: string;
+    updatedAt:string
 }

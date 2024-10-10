@@ -10,7 +10,7 @@ interface FailResponse {
   message: string
 }
 
-type APIResponse = SuccessResponse | FailResponse
+type APIResponse<E extends SuccessResponse> = E | FailResponse
 
 
 export const getStatus = async (url: string): Promise<boolean> => {
@@ -31,7 +31,7 @@ export const swrFetcher = async (url: string) => {
 export const makeHTTPRequest = async (url: string, config: {
   method: string,
   body?: any
-}): Promise<APIResponse> => {
+}): Promise<APIResponse<{success: true, data: any}>> => {
   const applyConfig = {
     ...config,
     headers: {
@@ -51,7 +51,8 @@ export const makeHTTPRequest = async (url: string, config: {
       message: data.message
     }
     return {
-      success: true
+      success: true,
+      data: data.data
     }
   } catch (e) {
     return {

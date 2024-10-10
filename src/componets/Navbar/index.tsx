@@ -20,7 +20,7 @@ export default function Navbar() {
         <NavLink href={"/pokemon"} label={'Pokemon'} />
         <NavLink href={"/time"} label={'User active'} />
         <NavLink href={"/testSWR"} label={'SWR'} />
-        <NavLink href={"/testSWR"} label={'Zustand'} />
+        <NavLink href={"/testZustand"} label={'Zustand'} />
       </Box>
     </div>
 

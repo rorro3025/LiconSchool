@@ -9,11 +9,7 @@ import { mutate } from 'swr';
 
 interface Props {
     headers: string[];
-    rows: {
-        uuid: string
-        type: string;
-        description: string;
-    }[];
+    rows: EditTermOwnerI[];
 }
 
 export default function AllTable({ rows, headers }: Props) {
@@ -66,6 +62,7 @@ export default function AllTable({ rows, headers }: Props) {
                             <Table.Td>{row.uuid}</Table.Td>
                             <Table.Td>{row.type}</Table.Td>
                             <Table.Td>{row.description}</Table.Td>
+                            <Table.Td>{row.updatedAt}</Table.Td>
                             <Table.Td style={{ justifyContent: 'space-around', display: 'flex' }}>
                                 <Button color='red' onClick={() => { setDeleteUUID(row.uuid); isModalDeleteOpen.setTrue() }}>Eliminar</Button>
                                 <Button color='black' onClick={() => {setEditData(row);isModalEditOpen.setTrue()}}>Editar</Button>
