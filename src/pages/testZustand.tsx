@@ -1,7 +1,7 @@
 import Layout from "@/componets/Layout";
 import { useStore } from "@/store/owners.slice";
 import { useEffect } from "react";
-import AllTable from "@/componets/AllTable";
+import AllTable from "@/componets/TableV2";
 import { Grid, GridCol, Button, Box } from "@mantine/core";
 import FormModal from "@/componets/FormModalV2";
 import { useBoolean } from "@/utils";

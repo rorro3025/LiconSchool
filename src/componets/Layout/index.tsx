@@ -9,7 +9,6 @@ interface Props {
 function Layout({children}:Props) {
   return (
   <Box>
-    <header>PWA Test</header>
     <Navbar />
     <Center>
         {children}

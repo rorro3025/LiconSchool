@@ -1,11 +1,11 @@
-import { Table, Button } from '@mantine/core'
+import { Table, Button, Alert } from '@mantine/core'
 import { useState } from 'react'
 import { EditTermOwnerI } from '@/interfaces';
 import { Modal } from '@mantine/core';
 import { useBoolean } from '@/utils';
 import FormModal from '../FormModal';
 import { makeHTTPRequest } from '@/utils';
-import { mutate } from 'swr';
+import { useStore } from '@/store/owners.slice';
 
 interface Props {
     headers: string[];
@@ -18,23 +18,24 @@ export default function AllTable({ rows, headers }: Props) {
     const isModalDeleteOpen = useBoolean()
     const isModalEditOpen = useBoolean()
     const isDeleting = useBoolean()
+    //const {setTermOwnerList, termOwnerList} = useStore((state)=> state)
 
     const handleEdit = (data: EditTermOwnerI) => {
         setEditData(data)
-        isModalDeleteOpen.setTrue()
+        isModalEditOpen.setTrue()
     }
 
     const sendDeleteRequest = async () => {
+        /*
         isDeleting.setTrue()
         const res = await makeHTTPRequest(`https://xj7fquaclh.execute-api.us-east-1.amazonaws.com/bi/glossary/${deleteUUID}`, {
             method: 'DELETE',
         })
         
-        await mutate('https://xj7fquaclh.execute-api.us-east-1.amazonaws.com/bi/glossary')
         isDeleting.setFalse()
+        */
         setDeleteUUID(null)
         isModalDeleteOpen.setFalse()
-        alert(res)
     }
 
 
@@ -65,7 +66,7 @@ export default function AllTable({ rows, headers }: Props) {
                             <Table.Td>{row.updatedAt}</Table.Td>
                             <Table.Td style={{ justifyContent: 'space-around', display: 'flex' }}>
                                 <Button color='red' onClick={() => { setDeleteUUID(row.uuid); isModalDeleteOpen.setTrue() }}>Eliminar</Button>
-                                <Button color='black' onClick={() => {setEditData(row);isModalEditOpen.setTrue()}}>Editar</Button>
+                                <Button color='black' onClick={()=> handleEdit(row)}>Editar</Button>
                             </Table.Td>
                         </Table.Tr>
                     ))}
