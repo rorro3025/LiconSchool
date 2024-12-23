@@ -11,7 +11,7 @@ self.fallback = async request => {
         ignoreSearch: true
       });
     case 'image':
-      if (true) return caches.match("/licon-colotr.png", {
+      if (true) return caches.match("/licon-color.png", {
         ignoreSearch: true
       });
     case 'audio':

@@ -16,6 +16,7 @@ export default function Navbar() {
           label="With icon"
           leftSection={<IconHomeBitcoin size="1rem" stroke={1.5} />}
         />
+        <NavLink href={"/sql"} label={'sql'} />
         <NavLink href={"/files"} label={'files'} />
         <NavLink href={"/pokemon"} label={'Pokemon'} />
         <NavLink href={"/time"} label={'User active'} />

@@ -10,6 +10,7 @@ const theme = createTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
+    console.log(process.env.NODE_ENV)
     if (
       !("serviceWorker" in navigator) ||
       process.env.NODE_ENV !== "production"
