@@ -8,6 +8,13 @@
   "start_url": "/",
   "short_name": "Alexita",
   "description": "Administracion de personal",
+  "screenshots": [
+    {
+      "src":"/screenshot_1.png",
+      "sizes": "2880x1800",
+      "type":"image/png"
+    }
+  ],
   "icons": [
     {
       "src": "/manifest-icon-192.maskable.png",
