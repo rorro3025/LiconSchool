@@ -2,14 +2,14 @@ import { RowDataPacket } from "mysql2";
 import { usePool } from "@/sqlConfig";
 
 export class Origin {
-    type: string
     name: string
-    entity: number
+    type: string
+    entity: string
 
-    constructor(name: string, email: string, role: number) {
-        this.email = email
+    constructor(name: string, entity: string, type: string) {
         this.name = name
-        this.role = role
+        this.type = type
+        this.entity = entity
     }
 
     getAll = async () => {
@@ -29,7 +29,7 @@ export class Origin {
         try {
             const query = "insert into users (name, email, role) values (?,?,?)"
             //usePool.connect()
-            const res = await usePool.query(query, [this.name, this.email, this.role])
+            const res = await usePool.query(query, [this.name, this.entity, this.type])
             //usePool.end()
             return {
                 success: true,
