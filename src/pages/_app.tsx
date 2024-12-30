@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import '@mantine/core/styles.css'
+import "@mantine/core/styles.css";
 import type { AppProps } from "next/app";
 import { Workbox } from "workbox-window";
 import { MantineProvider, createTheme } from "@mantine/core";
@@ -10,10 +10,10 @@ const theme = createTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    console.log(process.env.NODE_ENV)
+    console.log(process.env.NODE_ENV);
     if (
-      !("serviceWorker" in navigator) ||
-      process.env.NODE_ENV !== "production"
+      //|| process.env.NODE_ENV !== "production"
+      !("serviceWorker" in navigator)
     ) {
       console.warn("PWA support is diabled");
       return;
@@ -22,7 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
     wb.register();
   }, []);
 
-  return <MantineProvider theme={theme}>
-    <Component {...pageProps} />
-  </MantineProvider>;
+  return (
+    <MantineProvider theme={theme}>
+      <Component {...pageProps} />
+    </MantineProvider>
+  );
 }
