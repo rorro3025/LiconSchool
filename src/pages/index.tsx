@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Layout from "@/componets/Layout";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, Button, Box, Input } from "@mantine/core";
+import { Container, Button, Center, Modal, Box, Input } from "@mantine/core";
 import { FormEvent } from "react";
 import { getData, saveIntoDB } from "@/utils/db";
 
@@ -54,9 +54,14 @@ function Home() {
 
   return (
     <Layout>
-      <Box m={3}>
-        <Button onClick={open}>Login</Button>
-      </Box>
+      <Center>
+        <Button onClick={open} m={2} p={2}>
+          Login
+        </Button>
+        <Button onClick={handleNotification} m={2} p={2}>
+          notification
+        </Button>
+      </Center>
 
       <Modal opened={opened} onClose={close} title="Login">
         <Box>
@@ -70,13 +75,10 @@ function Home() {
         </Box>
       </Modal>
 
-      <Box>
-        <Button onClick={handleNotification}>notification</Button>
-      </Box>
-      <Box>
+      <Container>
         <p>offline data</p>
         <pre>{JSON.stringify(httpResponse, null, 2)}</pre>
-      </Box>
+      </Container>
     </Layout>
   );
 }

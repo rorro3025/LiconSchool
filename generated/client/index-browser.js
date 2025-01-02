@@ -120,8 +120,45 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  nature: 'nature',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PostScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  createdAt: 'createdAt',
+  content: 'content',
+  published: 'published',
+  authorId: 'authorId'
+};
+
+exports.Prisma.ProfileScalarFieldEnum = {
+  id: 'id',
+  bio: 'bio',
+  userId: 'userId'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email'
+};
+
+exports.Prisma.AccountNatureScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AccountingEntryScalarFieldEnum = {
+  id: 'id',
+  account: 'account',
+  createdAt: 'createdAt',
+  date: 'date',
+  title: 'title'
 };
 
 exports.Prisma.SortOrder = {
@@ -134,9 +171,19 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  Account: 'Account'
+  Account: 'Account',
+  Post: 'Post',
+  Profile: 'Profile',
+  User: 'User',
+  AccountNature: 'AccountNature',
+  AccountingEntry: 'AccountingEntry'
 };
 
 /**

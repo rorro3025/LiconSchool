@@ -1,20 +1,20 @@
-import { ReactNode } from 'react'
-import Navbar from '../Navbar'
-import {Box, Center} from '@mantine/core'
+import { ReactNode } from "react";
+import Navbar from "../Navbar";
+import { Box, Center, Container } from "@mantine/core";
 
 interface Props {
-    children: ReactNode
+  children: ReactNode;
 }
 
-function Layout({children}:Props) {
+function Layout({ children }: Props) {
   return (
-  <Box>
-    <Navbar />
-    <Center>
+    <>
+      <Navbar />
+      <Container px={3} py={4}>
         {children}
-    </Center>
-  </Box>
-  )
+      </Container>
+    </>
+  );
 }
 
-export default Layout
+export default Layout;
