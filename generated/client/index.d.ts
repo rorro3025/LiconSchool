@@ -285,7 +285,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 6.1.0
-   * Query Engine version: 11f085a2012c0f4778414c8db2651556ee0ef959
+   * Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
    */
   export type PrismaVersion = {
     client: string
@@ -7278,7 +7278,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Account"> | string | null
     createdAt?: DateTimeFilter<"Account"> | Date | string
     updatedAt?: DateTimeFilter<"Account"> | Date | string
-    AccountNature?: XOR<AccountNatureScalarRelationFilter, AccountNatureWhereInput>
+    AccountNature?: XOR<AccountNatureRelationFilter, AccountNatureWhereInput>
   }
 
   export type AccountOrderByWithRelationInput = {
@@ -7301,7 +7301,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Account"> | string | null
     createdAt?: DateTimeFilter<"Account"> | Date | string
     updatedAt?: DateTimeFilter<"Account"> | Date | string
-    AccountNature?: XOR<AccountNatureScalarRelationFilter, AccountNatureWhereInput>
+    AccountNature?: XOR<AccountNatureRelationFilter, AccountNatureWhereInput>
   }, "id" | "name">
 
   export type AccountOrderByWithAggregationInput = {
@@ -7340,7 +7340,7 @@ export namespace Prisma {
     content?: StringNullableFilter<"Post"> | string | null
     published?: BoolFilter<"Post"> | boolean
     authorId?: IntFilter<"Post"> | number
-    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    author?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type PostOrderByWithRelationInput = {
@@ -7363,7 +7363,7 @@ export namespace Prisma {
     content?: StringNullableFilter<"Post"> | string | null
     published?: BoolFilter<"Post"> | boolean
     authorId?: IntFilter<"Post"> | number
-    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    author?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
 
   export type PostOrderByWithAggregationInput = {
@@ -7399,7 +7399,7 @@ export namespace Prisma {
     id?: IntFilter<"Profile"> | number
     bio?: StringNullableFilter<"Profile"> | string | null
     userId?: IntFilter<"Profile"> | number
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type ProfileOrderByWithRelationInput = {
@@ -7416,7 +7416,7 @@ export namespace Prisma {
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     bio?: StringNullableFilter<"Profile"> | string | null
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
   export type ProfileOrderByWithAggregationInput = {
@@ -7447,7 +7447,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
     Post?: PostListRelationFilter
-    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+    profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7466,7 +7466,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringNullableFilter<"User"> | string | null
     Post?: PostListRelationFilter
-    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+    profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7941,7 +7941,7 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type AccountNatureScalarRelationFilter = {
+  export type AccountNatureRelationFilter = {
     is?: AccountNatureWhereInput
     isNot?: AccountNatureWhereInput
   }
@@ -8059,7 +8059,7 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type UserScalarRelationFilter = {
+  export type UserRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
   }
@@ -8143,7 +8143,7 @@ export namespace Prisma {
     none?: PostWhereInput
   }
 
-  export type ProfileNullableScalarRelationFilter = {
+  export type ProfileNullableRelationFilter = {
     is?: ProfileWhereInput | null
     isNot?: ProfileWhereInput | null
   }

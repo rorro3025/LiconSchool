@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
       return;
     }
     const wb = new Workbox("sw.js", { scope: "/" });
-    wb.register();
+    wb.register().then(()=>console.log('service registered')).catch((err)=>console.log(err));
   }, []);
 
   return (
