@@ -50,7 +50,7 @@ export default function NotificationToast() {
             </Group>
             <Dialog opened={opened} withCloseButton onClose={close} size={'lg'} radius={'md'}>
                 <Text size={'sm'} mb={'xs'} fw={500}>
-                    This browser don't allow push notifications
+                    This browser does not allow push notifications
                 </Text>
             </Dialog>
         </>
