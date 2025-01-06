@@ -11,8 +11,7 @@ const theme = createTheme({
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (
-      !("serviceWorker" in navigator) ||
-      process.env.NODE_ENV !== "production"
+      !("serviceWorker" in navigator)
     ) {
       console.warn("PWA support is diabled");
       return;
