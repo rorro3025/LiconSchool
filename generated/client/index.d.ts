@@ -43,6 +43,11 @@ export type AccountNature = $Result.DefaultSelection<Prisma.$AccountNaturePayloa
  * 
  */
 export type AccountingEntry = $Result.DefaultSelection<Prisma.$AccountingEntryPayload>
+/**
+ * Model RowEntry
+ * 
+ */
+export type RowEntry = $Result.DefaultSelection<Prisma.$RowEntryPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -226,6 +231,16 @@ export class PrismaClient<
     * ```
     */
   get accountingEntry(): Prisma.AccountingEntryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.rowEntry`: Exposes CRUD operations for the **RowEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RowEntries
+    * const rowEntries = await prisma.rowEntry.findMany()
+    * ```
+    */
+  get rowEntry(): Prisma.RowEntryDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -285,7 +300,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 6.1.0
-   * Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
+   * Query Engine version: 11f085a2012c0f4778414c8db2651556ee0ef959
    */
   export type PrismaVersion = {
     client: string
@@ -671,7 +686,8 @@ export namespace Prisma {
     Profile: 'Profile',
     User: 'User',
     AccountNature: 'AccountNature',
-    AccountingEntry: 'AccountingEntry'
+    AccountingEntry: 'AccountingEntry',
+    RowEntry: 'RowEntry'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -687,7 +703,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "account" | "post" | "profile" | "user" | "accountNature" | "accountingEntry"
+      modelProps: "account" | "post" | "profile" | "user" | "accountNature" | "accountingEntry" | "rowEntry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1111,6 +1127,76 @@ export namespace Prisma {
           }
         }
       }
+      RowEntry: {
+        payload: Prisma.$RowEntryPayload<ExtArgs>
+        fields: Prisma.RowEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RowEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RowEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.RowEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RowEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload>
+          }
+          findMany: {
+            args: Prisma.RowEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload>[]
+          }
+          create: {
+            args: Prisma.RowEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload>
+          }
+          createMany: {
+            args: Prisma.RowEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RowEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.RowEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload>
+          }
+          update: {
+            args: Prisma.RowEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.RowEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RowEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RowEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RowEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.RowEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRowEntry>
+          }
+          groupBy: {
+            args: Prisma.RowEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RowEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RowEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<RowEntryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1326,6 +1412,37 @@ export namespace Prisma {
    */
   export type AccountNatureCountOutputTypeCountAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AccountWhereInput
+  }
+
+
+  /**
+   * Count Type AccountingEntryCountOutputType
+   */
+
+  export type AccountingEntryCountOutputType = {
+    RowEntry: number
+  }
+
+  export type AccountingEntryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    RowEntry?: boolean | AccountingEntryCountOutputTypeCountRowEntryArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AccountingEntryCountOutputType without action
+   */
+  export type AccountingEntryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingEntryCountOutputType
+     */
+    select?: AccountingEntryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AccountingEntryCountOutputType without action
+   */
+  export type AccountingEntryCountOutputTypeCountRowEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RowEntryWhereInput
   }
 
 
@@ -6383,6 +6500,8 @@ export namespace Prisma {
     createdAt?: boolean
     date?: boolean
     title?: boolean
+    RowEntry?: boolean | AccountingEntry$RowEntryArgs<ExtArgs>
+    _count?: boolean | AccountingEntryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["accountingEntry"]>
 
   export type AccountingEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6401,10 +6520,17 @@ export namespace Prisma {
     title?: boolean
   }
 
+  export type AccountingEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    RowEntry?: boolean | AccountingEntry$RowEntryArgs<ExtArgs>
+    _count?: boolean | AccountingEntryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AccountingEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $AccountingEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AccountingEntry"
-    objects: {}
+    objects: {
+      RowEntry: Prisma.$RowEntryPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       account: number
@@ -6775,6 +6901,7 @@ export namespace Prisma {
    */
   export interface Prisma__AccountingEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    RowEntry<T extends AccountingEntry$RowEntryArgs<ExtArgs> = {}>(args?: Subset<T, AccountingEntry$RowEntryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6822,6 +6949,10 @@ export namespace Prisma {
      */
     select?: AccountingEntrySelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
+    /**
      * Filter, which AccountingEntry to fetch.
      */
     where: AccountingEntryWhereUniqueInput
@@ -6836,6 +6967,10 @@ export namespace Prisma {
      */
     select?: AccountingEntrySelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
+    /**
      * Filter, which AccountingEntry to fetch.
      */
     where: AccountingEntryWhereUniqueInput
@@ -6849,6 +6984,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AccountingEntry
      */
     select?: AccountingEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
     /**
      * Filter, which AccountingEntry to fetch.
      */
@@ -6894,6 +7033,10 @@ export namespace Prisma {
      */
     select?: AccountingEntrySelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
+    /**
      * Filter, which AccountingEntry to fetch.
      */
     where?: AccountingEntryWhereInput
@@ -6938,6 +7081,10 @@ export namespace Prisma {
      */
     select?: AccountingEntrySelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
+    /**
      * Filter, which AccountingEntries to fetch.
      */
     where?: AccountingEntryWhereInput
@@ -6976,6 +7123,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AccountingEntry
      */
     select?: AccountingEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
     /**
      * The data needed to create a AccountingEntry.
      */
@@ -7017,6 +7168,10 @@ export namespace Prisma {
      */
     select?: AccountingEntrySelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
+    /**
      * The data needed to update a AccountingEntry.
      */
     data: XOR<AccountingEntryUpdateInput, AccountingEntryUncheckedUpdateInput>
@@ -7049,6 +7204,10 @@ export namespace Prisma {
      */
     select?: AccountingEntrySelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
+    /**
      * The filter to search for the AccountingEntry to update in case it exists.
      */
     where: AccountingEntryWhereUniqueInput
@@ -7071,6 +7230,10 @@ export namespace Prisma {
      */
     select?: AccountingEntrySelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
+    /**
      * Filter which AccountingEntry to delete.
      */
     where: AccountingEntryWhereUniqueInput
@@ -7087,6 +7250,26 @@ export namespace Prisma {
   }
 
   /**
+   * AccountingEntry.RowEntry
+   */
+  export type AccountingEntry$RowEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    where?: RowEntryWhereInput
+    orderBy?: RowEntryOrderByWithRelationInput | RowEntryOrderByWithRelationInput[]
+    cursor?: RowEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RowEntryScalarFieldEnum | RowEntryScalarFieldEnum[]
+  }
+
+  /**
    * AccountingEntry without action
    */
   export type AccountingEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7094,6 +7277,973 @@ export namespace Prisma {
      * Select specific fields to fetch from the AccountingEntry
      */
     select?: AccountingEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RowEntry
+   */
+
+  export type AggregateRowEntry = {
+    _count: RowEntryCountAggregateOutputType | null
+    _avg: RowEntryAvgAggregateOutputType | null
+    _sum: RowEntrySumAggregateOutputType | null
+    _min: RowEntryMinAggregateOutputType | null
+    _max: RowEntryMaxAggregateOutputType | null
+  }
+
+  export type RowEntryAvgAggregateOutputType = {
+    id: number | null
+    accountEntry: number | null
+    amount: Decimal | null
+  }
+
+  export type RowEntrySumAggregateOutputType = {
+    id: number | null
+    accountEntry: number | null
+    amount: Decimal | null
+  }
+
+  export type RowEntryMinAggregateOutputType = {
+    id: number | null
+    accountEntry: number | null
+    title: string | null
+    amount: Decimal | null
+  }
+
+  export type RowEntryMaxAggregateOutputType = {
+    id: number | null
+    accountEntry: number | null
+    title: string | null
+    amount: Decimal | null
+  }
+
+  export type RowEntryCountAggregateOutputType = {
+    id: number
+    accountEntry: number
+    title: number
+    amount: number
+    _all: number
+  }
+
+
+  export type RowEntryAvgAggregateInputType = {
+    id?: true
+    accountEntry?: true
+    amount?: true
+  }
+
+  export type RowEntrySumAggregateInputType = {
+    id?: true
+    accountEntry?: true
+    amount?: true
+  }
+
+  export type RowEntryMinAggregateInputType = {
+    id?: true
+    accountEntry?: true
+    title?: true
+    amount?: true
+  }
+
+  export type RowEntryMaxAggregateInputType = {
+    id?: true
+    accountEntry?: true
+    title?: true
+    amount?: true
+  }
+
+  export type RowEntryCountAggregateInputType = {
+    id?: true
+    accountEntry?: true
+    title?: true
+    amount?: true
+    _all?: true
+  }
+
+  export type RowEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RowEntry to aggregate.
+     */
+    where?: RowEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RowEntries to fetch.
+     */
+    orderBy?: RowEntryOrderByWithRelationInput | RowEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RowEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RowEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RowEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RowEntries
+    **/
+    _count?: true | RowEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RowEntryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RowEntrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RowEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RowEntryMaxAggregateInputType
+  }
+
+  export type GetRowEntryAggregateType<T extends RowEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateRowEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRowEntry[P]>
+      : GetScalarType<T[P], AggregateRowEntry[P]>
+  }
+
+
+
+
+  export type RowEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RowEntryWhereInput
+    orderBy?: RowEntryOrderByWithAggregationInput | RowEntryOrderByWithAggregationInput[]
+    by: RowEntryScalarFieldEnum[] | RowEntryScalarFieldEnum
+    having?: RowEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RowEntryCountAggregateInputType | true
+    _avg?: RowEntryAvgAggregateInputType
+    _sum?: RowEntrySumAggregateInputType
+    _min?: RowEntryMinAggregateInputType
+    _max?: RowEntryMaxAggregateInputType
+  }
+
+  export type RowEntryGroupByOutputType = {
+    id: number
+    accountEntry: number
+    title: string | null
+    amount: Decimal | null
+    _count: RowEntryCountAggregateOutputType | null
+    _avg: RowEntryAvgAggregateOutputType | null
+    _sum: RowEntrySumAggregateOutputType | null
+    _min: RowEntryMinAggregateOutputType | null
+    _max: RowEntryMaxAggregateOutputType | null
+  }
+
+  type GetRowEntryGroupByPayload<T extends RowEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RowEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RowEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RowEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], RowEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RowEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    accountEntry?: boolean
+    title?: boolean
+    amount?: boolean
+    AccountingEntry?: boolean | AccountingEntryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rowEntry"]>
+
+  export type RowEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    accountEntry?: boolean
+    title?: boolean
+    amount?: boolean
+    AccountingEntry?: boolean | AccountingEntryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rowEntry"]>
+
+  export type RowEntrySelectScalar = {
+    id?: boolean
+    accountEntry?: boolean
+    title?: boolean
+    amount?: boolean
+  }
+
+  export type RowEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    AccountingEntry?: boolean | AccountingEntryDefaultArgs<ExtArgs>
+  }
+  export type RowEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    AccountingEntry?: boolean | AccountingEntryDefaultArgs<ExtArgs>
+  }
+
+  export type $RowEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RowEntry"
+    objects: {
+      AccountingEntry: Prisma.$AccountingEntryPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      accountEntry: number
+      title: string | null
+      amount: Prisma.Decimal | null
+    }, ExtArgs["result"]["rowEntry"]>
+    composites: {}
+  }
+
+  type RowEntryGetPayload<S extends boolean | null | undefined | RowEntryDefaultArgs> = $Result.GetResult<Prisma.$RowEntryPayload, S>
+
+  type RowEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RowEntryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RowEntryCountAggregateInputType | true
+    }
+
+  export interface RowEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RowEntry'], meta: { name: 'RowEntry' } }
+    /**
+     * Find zero or one RowEntry that matches the filter.
+     * @param {RowEntryFindUniqueArgs} args - Arguments to find a RowEntry
+     * @example
+     * // Get one RowEntry
+     * const rowEntry = await prisma.rowEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RowEntryFindUniqueArgs>(args: SelectSubset<T, RowEntryFindUniqueArgs<ExtArgs>>): Prisma__RowEntryClient<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one RowEntry that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RowEntryFindUniqueOrThrowArgs} args - Arguments to find a RowEntry
+     * @example
+     * // Get one RowEntry
+     * const rowEntry = await prisma.rowEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RowEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, RowEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RowEntryClient<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first RowEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RowEntryFindFirstArgs} args - Arguments to find a RowEntry
+     * @example
+     * // Get one RowEntry
+     * const rowEntry = await prisma.rowEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RowEntryFindFirstArgs>(args?: SelectSubset<T, RowEntryFindFirstArgs<ExtArgs>>): Prisma__RowEntryClient<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first RowEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RowEntryFindFirstOrThrowArgs} args - Arguments to find a RowEntry
+     * @example
+     * // Get one RowEntry
+     * const rowEntry = await prisma.rowEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RowEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, RowEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__RowEntryClient<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more RowEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RowEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RowEntries
+     * const rowEntries = await prisma.rowEntry.findMany()
+     * 
+     * // Get first 10 RowEntries
+     * const rowEntries = await prisma.rowEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rowEntryWithIdOnly = await prisma.rowEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RowEntryFindManyArgs>(args?: SelectSubset<T, RowEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a RowEntry.
+     * @param {RowEntryCreateArgs} args - Arguments to create a RowEntry.
+     * @example
+     * // Create one RowEntry
+     * const RowEntry = await prisma.rowEntry.create({
+     *   data: {
+     *     // ... data to create a RowEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends RowEntryCreateArgs>(args: SelectSubset<T, RowEntryCreateArgs<ExtArgs>>): Prisma__RowEntryClient<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many RowEntries.
+     * @param {RowEntryCreateManyArgs} args - Arguments to create many RowEntries.
+     * @example
+     * // Create many RowEntries
+     * const rowEntry = await prisma.rowEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RowEntryCreateManyArgs>(args?: SelectSubset<T, RowEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RowEntries and returns the data saved in the database.
+     * @param {RowEntryCreateManyAndReturnArgs} args - Arguments to create many RowEntries.
+     * @example
+     * // Create many RowEntries
+     * const rowEntry = await prisma.rowEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RowEntries and only return the `id`
+     * const rowEntryWithIdOnly = await prisma.rowEntry.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RowEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, RowEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a RowEntry.
+     * @param {RowEntryDeleteArgs} args - Arguments to delete one RowEntry.
+     * @example
+     * // Delete one RowEntry
+     * const RowEntry = await prisma.rowEntry.delete({
+     *   where: {
+     *     // ... filter to delete one RowEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RowEntryDeleteArgs>(args: SelectSubset<T, RowEntryDeleteArgs<ExtArgs>>): Prisma__RowEntryClient<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one RowEntry.
+     * @param {RowEntryUpdateArgs} args - Arguments to update one RowEntry.
+     * @example
+     * // Update one RowEntry
+     * const rowEntry = await prisma.rowEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RowEntryUpdateArgs>(args: SelectSubset<T, RowEntryUpdateArgs<ExtArgs>>): Prisma__RowEntryClient<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more RowEntries.
+     * @param {RowEntryDeleteManyArgs} args - Arguments to filter RowEntries to delete.
+     * @example
+     * // Delete a few RowEntries
+     * const { count } = await prisma.rowEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RowEntryDeleteManyArgs>(args?: SelectSubset<T, RowEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RowEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RowEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RowEntries
+     * const rowEntry = await prisma.rowEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RowEntryUpdateManyArgs>(args: SelectSubset<T, RowEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one RowEntry.
+     * @param {RowEntryUpsertArgs} args - Arguments to update or create a RowEntry.
+     * @example
+     * // Update or create a RowEntry
+     * const rowEntry = await prisma.rowEntry.upsert({
+     *   create: {
+     *     // ... data to create a RowEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RowEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RowEntryUpsertArgs>(args: SelectSubset<T, RowEntryUpsertArgs<ExtArgs>>): Prisma__RowEntryClient<$Result.GetResult<Prisma.$RowEntryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of RowEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RowEntryCountArgs} args - Arguments to filter RowEntries to count.
+     * @example
+     * // Count the number of RowEntries
+     * const count = await prisma.rowEntry.count({
+     *   where: {
+     *     // ... the filter for the RowEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends RowEntryCountArgs>(
+      args?: Subset<T, RowEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RowEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RowEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RowEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RowEntryAggregateArgs>(args: Subset<T, RowEntryAggregateArgs>): Prisma.PrismaPromise<GetRowEntryAggregateType<T>>
+
+    /**
+     * Group by RowEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RowEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RowEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RowEntryGroupByArgs['orderBy'] }
+        : { orderBy?: RowEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RowEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRowEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RowEntry model
+   */
+  readonly fields: RowEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RowEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RowEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    AccountingEntry<T extends AccountingEntryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AccountingEntryDefaultArgs<ExtArgs>>): Prisma__AccountingEntryClient<$Result.GetResult<Prisma.$AccountingEntryPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RowEntry model
+   */ 
+  interface RowEntryFieldRefs {
+    readonly id: FieldRef<"RowEntry", 'Int'>
+    readonly accountEntry: FieldRef<"RowEntry", 'Int'>
+    readonly title: FieldRef<"RowEntry", 'String'>
+    readonly amount: FieldRef<"RowEntry", 'Decimal'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RowEntry findUnique
+   */
+  export type RowEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RowEntry to fetch.
+     */
+    where: RowEntryWhereUniqueInput
+  }
+
+  /**
+   * RowEntry findUniqueOrThrow
+   */
+  export type RowEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RowEntry to fetch.
+     */
+    where: RowEntryWhereUniqueInput
+  }
+
+  /**
+   * RowEntry findFirst
+   */
+  export type RowEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RowEntry to fetch.
+     */
+    where?: RowEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RowEntries to fetch.
+     */
+    orderBy?: RowEntryOrderByWithRelationInput | RowEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RowEntries.
+     */
+    cursor?: RowEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RowEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RowEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RowEntries.
+     */
+    distinct?: RowEntryScalarFieldEnum | RowEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RowEntry findFirstOrThrow
+   */
+  export type RowEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RowEntry to fetch.
+     */
+    where?: RowEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RowEntries to fetch.
+     */
+    orderBy?: RowEntryOrderByWithRelationInput | RowEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RowEntries.
+     */
+    cursor?: RowEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RowEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RowEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RowEntries.
+     */
+    distinct?: RowEntryScalarFieldEnum | RowEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RowEntry findMany
+   */
+  export type RowEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RowEntries to fetch.
+     */
+    where?: RowEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RowEntries to fetch.
+     */
+    orderBy?: RowEntryOrderByWithRelationInput | RowEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RowEntries.
+     */
+    cursor?: RowEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RowEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RowEntries.
+     */
+    skip?: number
+    distinct?: RowEntryScalarFieldEnum | RowEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RowEntry create
+   */
+  export type RowEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RowEntry.
+     */
+    data: XOR<RowEntryCreateInput, RowEntryUncheckedCreateInput>
+  }
+
+  /**
+   * RowEntry createMany
+   */
+  export type RowEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RowEntries.
+     */
+    data: RowEntryCreateManyInput | RowEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RowEntry createManyAndReturn
+   */
+  export type RowEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many RowEntries.
+     */
+    data: RowEntryCreateManyInput | RowEntryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RowEntry update
+   */
+  export type RowEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RowEntry.
+     */
+    data: XOR<RowEntryUpdateInput, RowEntryUncheckedUpdateInput>
+    /**
+     * Choose, which RowEntry to update.
+     */
+    where: RowEntryWhereUniqueInput
+  }
+
+  /**
+   * RowEntry updateMany
+   */
+  export type RowEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RowEntries.
+     */
+    data: XOR<RowEntryUpdateManyMutationInput, RowEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which RowEntries to update
+     */
+    where?: RowEntryWhereInput
+  }
+
+  /**
+   * RowEntry upsert
+   */
+  export type RowEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RowEntry to update in case it exists.
+     */
+    where: RowEntryWhereUniqueInput
+    /**
+     * In case the RowEntry found by the `where` argument doesn't exist, create a new RowEntry with this data.
+     */
+    create: XOR<RowEntryCreateInput, RowEntryUncheckedCreateInput>
+    /**
+     * In case the RowEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RowEntryUpdateInput, RowEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * RowEntry delete
+   */
+  export type RowEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
+    /**
+     * Filter which RowEntry to delete.
+     */
+    where: RowEntryWhereUniqueInput
+  }
+
+  /**
+   * RowEntry deleteMany
+   */
+  export type RowEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RowEntries to delete
+     */
+    where?: RowEntryWhereInput
+  }
+
+  /**
+   * RowEntry without action
+   */
+  export type RowEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RowEntry
+     */
+    select?: RowEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RowEntryInclude<ExtArgs> | null
   }
 
 
@@ -7171,6 +8321,16 @@ export namespace Prisma {
   };
 
   export type AccountingEntryScalarFieldEnum = (typeof AccountingEntryScalarFieldEnum)[keyof typeof AccountingEntryScalarFieldEnum]
+
+
+  export const RowEntryScalarFieldEnum: {
+    id: 'id',
+    accountEntry: 'accountEntry',
+    title: 'title',
+    amount: 'amount'
+  };
+
+  export type RowEntryScalarFieldEnum = (typeof RowEntryScalarFieldEnum)[keyof typeof RowEntryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7252,6 +8412,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -7278,7 +8452,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Account"> | string | null
     createdAt?: DateTimeFilter<"Account"> | Date | string
     updatedAt?: DateTimeFilter<"Account"> | Date | string
-    AccountNature?: XOR<AccountNatureRelationFilter, AccountNatureWhereInput>
+    AccountNature?: XOR<AccountNatureScalarRelationFilter, AccountNatureWhereInput>
   }
 
   export type AccountOrderByWithRelationInput = {
@@ -7301,7 +8475,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Account"> | string | null
     createdAt?: DateTimeFilter<"Account"> | Date | string
     updatedAt?: DateTimeFilter<"Account"> | Date | string
-    AccountNature?: XOR<AccountNatureRelationFilter, AccountNatureWhereInput>
+    AccountNature?: XOR<AccountNatureScalarRelationFilter, AccountNatureWhereInput>
   }, "id" | "name">
 
   export type AccountOrderByWithAggregationInput = {
@@ -7340,7 +8514,7 @@ export namespace Prisma {
     content?: StringNullableFilter<"Post"> | string | null
     published?: BoolFilter<"Post"> | boolean
     authorId?: IntFilter<"Post"> | number
-    author?: XOR<UserRelationFilter, UserWhereInput>
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type PostOrderByWithRelationInput = {
@@ -7363,7 +8537,7 @@ export namespace Prisma {
     content?: StringNullableFilter<"Post"> | string | null
     published?: BoolFilter<"Post"> | boolean
     authorId?: IntFilter<"Post"> | number
-    author?: XOR<UserRelationFilter, UserWhereInput>
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type PostOrderByWithAggregationInput = {
@@ -7399,7 +8573,7 @@ export namespace Prisma {
     id?: IntFilter<"Profile"> | number
     bio?: StringNullableFilter<"Profile"> | string | null
     userId?: IntFilter<"Profile"> | number
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ProfileOrderByWithRelationInput = {
@@ -7416,7 +8590,7 @@ export namespace Prisma {
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     bio?: StringNullableFilter<"Profile"> | string | null
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
   export type ProfileOrderByWithAggregationInput = {
@@ -7447,7 +8621,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
     Post?: PostListRelationFilter
-    profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
+    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7466,7 +8640,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringNullableFilter<"User"> | string | null
     Post?: PostListRelationFilter
-    profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
+    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7545,6 +8719,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AccountingEntry"> | Date | string
     date?: DateTimeFilter<"AccountingEntry"> | Date | string
     title?: StringFilter<"AccountingEntry"> | string
+    RowEntry?: RowEntryListRelationFilter
   }
 
   export type AccountingEntryOrderByWithRelationInput = {
@@ -7553,6 +8728,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     date?: SortOrder
     title?: SortOrder
+    RowEntry?: RowEntryOrderByRelationAggregateInput
   }
 
   export type AccountingEntryWhereUniqueInput = Prisma.AtLeast<{
@@ -7564,6 +8740,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AccountingEntry"> | Date | string
     date?: DateTimeFilter<"AccountingEntry"> | Date | string
     title?: StringFilter<"AccountingEntry"> | string
+    RowEntry?: RowEntryListRelationFilter
   }, "id">
 
   export type AccountingEntryOrderByWithAggregationInput = {
@@ -7588,6 +8765,58 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"AccountingEntry"> | Date | string
     date?: DateTimeWithAggregatesFilter<"AccountingEntry"> | Date | string
     title?: StringWithAggregatesFilter<"AccountingEntry"> | string
+  }
+
+  export type RowEntryWhereInput = {
+    AND?: RowEntryWhereInput | RowEntryWhereInput[]
+    OR?: RowEntryWhereInput[]
+    NOT?: RowEntryWhereInput | RowEntryWhereInput[]
+    id?: IntFilter<"RowEntry"> | number
+    accountEntry?: IntFilter<"RowEntry"> | number
+    title?: StringNullableFilter<"RowEntry"> | string | null
+    amount?: DecimalNullableFilter<"RowEntry"> | Decimal | DecimalJsLike | number | string | null
+    AccountingEntry?: XOR<AccountingEntryScalarRelationFilter, AccountingEntryWhereInput>
+  }
+
+  export type RowEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    accountEntry?: SortOrder
+    title?: SortOrderInput | SortOrder
+    amount?: SortOrderInput | SortOrder
+    AccountingEntry?: AccountingEntryOrderByWithRelationInput
+  }
+
+  export type RowEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: RowEntryWhereInput | RowEntryWhereInput[]
+    OR?: RowEntryWhereInput[]
+    NOT?: RowEntryWhereInput | RowEntryWhereInput[]
+    accountEntry?: IntFilter<"RowEntry"> | number
+    title?: StringNullableFilter<"RowEntry"> | string | null
+    amount?: DecimalNullableFilter<"RowEntry"> | Decimal | DecimalJsLike | number | string | null
+    AccountingEntry?: XOR<AccountingEntryScalarRelationFilter, AccountingEntryWhereInput>
+  }, "id">
+
+  export type RowEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    accountEntry?: SortOrder
+    title?: SortOrderInput | SortOrder
+    amount?: SortOrderInput | SortOrder
+    _count?: RowEntryCountOrderByAggregateInput
+    _avg?: RowEntryAvgOrderByAggregateInput
+    _max?: RowEntryMaxOrderByAggregateInput
+    _min?: RowEntryMinOrderByAggregateInput
+    _sum?: RowEntrySumOrderByAggregateInput
+  }
+
+  export type RowEntryScalarWhereWithAggregatesInput = {
+    AND?: RowEntryScalarWhereWithAggregatesInput | RowEntryScalarWhereWithAggregatesInput[]
+    OR?: RowEntryScalarWhereWithAggregatesInput[]
+    NOT?: RowEntryScalarWhereWithAggregatesInput | RowEntryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"RowEntry"> | number
+    accountEntry?: IntWithAggregatesFilter<"RowEntry"> | number
+    title?: StringNullableWithAggregatesFilter<"RowEntry"> | string | null
+    amount?: DecimalNullableWithAggregatesFilter<"RowEntry"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type AccountCreateInput = {
@@ -7841,6 +9070,7 @@ export namespace Prisma {
     createdAt?: Date | string
     date?: Date | string
     title: string
+    RowEntry?: RowEntryCreateNestedManyWithoutAccountingEntryInput
   }
 
   export type AccountingEntryUncheckedCreateInput = {
@@ -7849,6 +9079,7 @@ export namespace Prisma {
     createdAt?: Date | string
     date?: Date | string
     title: string
+    RowEntry?: RowEntryUncheckedCreateNestedManyWithoutAccountingEntryInput
   }
 
   export type AccountingEntryUpdateInput = {
@@ -7856,6 +9087,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    RowEntry?: RowEntryUpdateManyWithoutAccountingEntryNestedInput
   }
 
   export type AccountingEntryUncheckedUpdateInput = {
@@ -7864,6 +9096,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    RowEntry?: RowEntryUncheckedUpdateManyWithoutAccountingEntryNestedInput
   }
 
   export type AccountingEntryCreateManyInput = {
@@ -7887,6 +9120,51 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RowEntryCreateInput = {
+    title?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+    AccountingEntry: AccountingEntryCreateNestedOneWithoutRowEntryInput
+  }
+
+  export type RowEntryUncheckedCreateInput = {
+    id?: number
+    accountEntry: number
+    title?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type RowEntryUpdateInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    AccountingEntry?: AccountingEntryUpdateOneRequiredWithoutRowEntryNestedInput
+  }
+
+  export type RowEntryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    accountEntry?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type RowEntryCreateManyInput = {
+    id?: number
+    accountEntry: number
+    title?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type RowEntryUpdateManyMutationInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type RowEntryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    accountEntry?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -7941,7 +9219,7 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type AccountNatureRelationFilter = {
+  export type AccountNatureScalarRelationFilter = {
     is?: AccountNatureWhereInput
     isNot?: AccountNatureWhereInput
   }
@@ -8059,7 +9337,7 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type UserRelationFilter = {
+  export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
   }
@@ -8143,7 +9421,7 @@ export namespace Prisma {
     none?: PostWhereInput
   }
 
-  export type ProfileNullableRelationFilter = {
+  export type ProfileNullableScalarRelationFilter = {
     is?: ProfileWhereInput | null
     isNot?: ProfileWhereInput | null
   }
@@ -8214,6 +9492,16 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type RowEntryListRelationFilter = {
+    every?: RowEntryWhereInput
+    some?: RowEntryWhereInput
+    none?: RowEntryWhereInput
+  }
+
+  export type RowEntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type AccountingEntryCountOrderByAggregateInput = {
     id?: SortOrder
     account?: SortOrder
@@ -8246,6 +9534,71 @@ export namespace Prisma {
   export type AccountingEntrySumOrderByAggregateInput = {
     id?: SortOrder
     account?: SortOrder
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type AccountingEntryScalarRelationFilter = {
+    is?: AccountingEntryWhereInput
+    isNot?: AccountingEntryWhereInput
+  }
+
+  export type RowEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    accountEntry?: SortOrder
+    title?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type RowEntryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    accountEntry?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type RowEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    accountEntry?: SortOrder
+    title?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type RowEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    accountEntry?: SortOrder
+    title?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type RowEntrySumOrderByAggregateInput = {
+    id?: SortOrder
+    accountEntry?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type AccountNatureCreateNestedOneWithoutAccountInput = {
@@ -8430,6 +9783,70 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
+  export type RowEntryCreateNestedManyWithoutAccountingEntryInput = {
+    create?: XOR<RowEntryCreateWithoutAccountingEntryInput, RowEntryUncheckedCreateWithoutAccountingEntryInput> | RowEntryCreateWithoutAccountingEntryInput[] | RowEntryUncheckedCreateWithoutAccountingEntryInput[]
+    connectOrCreate?: RowEntryCreateOrConnectWithoutAccountingEntryInput | RowEntryCreateOrConnectWithoutAccountingEntryInput[]
+    createMany?: RowEntryCreateManyAccountingEntryInputEnvelope
+    connect?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+  }
+
+  export type RowEntryUncheckedCreateNestedManyWithoutAccountingEntryInput = {
+    create?: XOR<RowEntryCreateWithoutAccountingEntryInput, RowEntryUncheckedCreateWithoutAccountingEntryInput> | RowEntryCreateWithoutAccountingEntryInput[] | RowEntryUncheckedCreateWithoutAccountingEntryInput[]
+    connectOrCreate?: RowEntryCreateOrConnectWithoutAccountingEntryInput | RowEntryCreateOrConnectWithoutAccountingEntryInput[]
+    createMany?: RowEntryCreateManyAccountingEntryInputEnvelope
+    connect?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+  }
+
+  export type RowEntryUpdateManyWithoutAccountingEntryNestedInput = {
+    create?: XOR<RowEntryCreateWithoutAccountingEntryInput, RowEntryUncheckedCreateWithoutAccountingEntryInput> | RowEntryCreateWithoutAccountingEntryInput[] | RowEntryUncheckedCreateWithoutAccountingEntryInput[]
+    connectOrCreate?: RowEntryCreateOrConnectWithoutAccountingEntryInput | RowEntryCreateOrConnectWithoutAccountingEntryInput[]
+    upsert?: RowEntryUpsertWithWhereUniqueWithoutAccountingEntryInput | RowEntryUpsertWithWhereUniqueWithoutAccountingEntryInput[]
+    createMany?: RowEntryCreateManyAccountingEntryInputEnvelope
+    set?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+    disconnect?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+    delete?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+    connect?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+    update?: RowEntryUpdateWithWhereUniqueWithoutAccountingEntryInput | RowEntryUpdateWithWhereUniqueWithoutAccountingEntryInput[]
+    updateMany?: RowEntryUpdateManyWithWhereWithoutAccountingEntryInput | RowEntryUpdateManyWithWhereWithoutAccountingEntryInput[]
+    deleteMany?: RowEntryScalarWhereInput | RowEntryScalarWhereInput[]
+  }
+
+  export type RowEntryUncheckedUpdateManyWithoutAccountingEntryNestedInput = {
+    create?: XOR<RowEntryCreateWithoutAccountingEntryInput, RowEntryUncheckedCreateWithoutAccountingEntryInput> | RowEntryCreateWithoutAccountingEntryInput[] | RowEntryUncheckedCreateWithoutAccountingEntryInput[]
+    connectOrCreate?: RowEntryCreateOrConnectWithoutAccountingEntryInput | RowEntryCreateOrConnectWithoutAccountingEntryInput[]
+    upsert?: RowEntryUpsertWithWhereUniqueWithoutAccountingEntryInput | RowEntryUpsertWithWhereUniqueWithoutAccountingEntryInput[]
+    createMany?: RowEntryCreateManyAccountingEntryInputEnvelope
+    set?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+    disconnect?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+    delete?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+    connect?: RowEntryWhereUniqueInput | RowEntryWhereUniqueInput[]
+    update?: RowEntryUpdateWithWhereUniqueWithoutAccountingEntryInput | RowEntryUpdateWithWhereUniqueWithoutAccountingEntryInput[]
+    updateMany?: RowEntryUpdateManyWithWhereWithoutAccountingEntryInput | RowEntryUpdateManyWithWhereWithoutAccountingEntryInput[]
+    deleteMany?: RowEntryScalarWhereInput | RowEntryScalarWhereInput[]
+  }
+
+  export type AccountingEntryCreateNestedOneWithoutRowEntryInput = {
+    create?: XOR<AccountingEntryCreateWithoutRowEntryInput, AccountingEntryUncheckedCreateWithoutRowEntryInput>
+    connectOrCreate?: AccountingEntryCreateOrConnectWithoutRowEntryInput
+    connect?: AccountingEntryWhereUniqueInput
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type AccountingEntryUpdateOneRequiredWithoutRowEntryNestedInput = {
+    create?: XOR<AccountingEntryCreateWithoutRowEntryInput, AccountingEntryUncheckedCreateWithoutRowEntryInput>
+    connectOrCreate?: AccountingEntryCreateOrConnectWithoutRowEntryInput
+    upsert?: AccountingEntryUpsertWithoutRowEntryInput
+    connect?: AccountingEntryWhereUniqueInput
+    update?: XOR<XOR<AccountingEntryUpdateToOneWithWhereWithoutRowEntryInput, AccountingEntryUpdateWithoutRowEntryInput>, AccountingEntryUncheckedUpdateWithoutRowEntryInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8577,6 +9994,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type AccountNatureCreateWithoutAccountInput = {
@@ -8841,6 +10285,99 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Account"> | Date | string
   }
 
+  export type RowEntryCreateWithoutAccountingEntryInput = {
+    title?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type RowEntryUncheckedCreateWithoutAccountingEntryInput = {
+    id?: number
+    title?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type RowEntryCreateOrConnectWithoutAccountingEntryInput = {
+    where: RowEntryWhereUniqueInput
+    create: XOR<RowEntryCreateWithoutAccountingEntryInput, RowEntryUncheckedCreateWithoutAccountingEntryInput>
+  }
+
+  export type RowEntryCreateManyAccountingEntryInputEnvelope = {
+    data: RowEntryCreateManyAccountingEntryInput | RowEntryCreateManyAccountingEntryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RowEntryUpsertWithWhereUniqueWithoutAccountingEntryInput = {
+    where: RowEntryWhereUniqueInput
+    update: XOR<RowEntryUpdateWithoutAccountingEntryInput, RowEntryUncheckedUpdateWithoutAccountingEntryInput>
+    create: XOR<RowEntryCreateWithoutAccountingEntryInput, RowEntryUncheckedCreateWithoutAccountingEntryInput>
+  }
+
+  export type RowEntryUpdateWithWhereUniqueWithoutAccountingEntryInput = {
+    where: RowEntryWhereUniqueInput
+    data: XOR<RowEntryUpdateWithoutAccountingEntryInput, RowEntryUncheckedUpdateWithoutAccountingEntryInput>
+  }
+
+  export type RowEntryUpdateManyWithWhereWithoutAccountingEntryInput = {
+    where: RowEntryScalarWhereInput
+    data: XOR<RowEntryUpdateManyMutationInput, RowEntryUncheckedUpdateManyWithoutAccountingEntryInput>
+  }
+
+  export type RowEntryScalarWhereInput = {
+    AND?: RowEntryScalarWhereInput | RowEntryScalarWhereInput[]
+    OR?: RowEntryScalarWhereInput[]
+    NOT?: RowEntryScalarWhereInput | RowEntryScalarWhereInput[]
+    id?: IntFilter<"RowEntry"> | number
+    accountEntry?: IntFilter<"RowEntry"> | number
+    title?: StringNullableFilter<"RowEntry"> | string | null
+    amount?: DecimalNullableFilter<"RowEntry"> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type AccountingEntryCreateWithoutRowEntryInput = {
+    account: number
+    createdAt?: Date | string
+    date?: Date | string
+    title: string
+  }
+
+  export type AccountingEntryUncheckedCreateWithoutRowEntryInput = {
+    id?: number
+    account: number
+    createdAt?: Date | string
+    date?: Date | string
+    title: string
+  }
+
+  export type AccountingEntryCreateOrConnectWithoutRowEntryInput = {
+    where: AccountingEntryWhereUniqueInput
+    create: XOR<AccountingEntryCreateWithoutRowEntryInput, AccountingEntryUncheckedCreateWithoutRowEntryInput>
+  }
+
+  export type AccountingEntryUpsertWithoutRowEntryInput = {
+    update: XOR<AccountingEntryUpdateWithoutRowEntryInput, AccountingEntryUncheckedUpdateWithoutRowEntryInput>
+    create: XOR<AccountingEntryCreateWithoutRowEntryInput, AccountingEntryUncheckedCreateWithoutRowEntryInput>
+    where?: AccountingEntryWhereInput
+  }
+
+  export type AccountingEntryUpdateToOneWithWhereWithoutRowEntryInput = {
+    where?: AccountingEntryWhereInput
+    data: XOR<AccountingEntryUpdateWithoutRowEntryInput, AccountingEntryUncheckedUpdateWithoutRowEntryInput>
+  }
+
+  export type AccountingEntryUpdateWithoutRowEntryInput = {
+    account?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AccountingEntryUncheckedUpdateWithoutRowEntryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    account?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+  }
+
   export type PostCreateManyAuthorInput = {
     id?: number
     title: string
@@ -8901,6 +10438,29 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RowEntryCreateManyAccountingEntryInput = {
+    id?: number
+    title?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type RowEntryUpdateWithoutAccountingEntryInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type RowEntryUncheckedUpdateWithoutAccountingEntryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type RowEntryUncheckedUpdateManyWithoutAccountingEntryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
 

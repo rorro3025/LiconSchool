@@ -57,15 +57,13 @@ model AccountingEntry {
   createdAt DateTime   @default(now()) @db.Timestamp(6)
   date      DateTime   @default(now()) @db.Timestamp(6)
   title     String     @db.VarChar(255)
-  RowEntry  RowEntry[] @ignore
+  RowEntry  RowEntry[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model RowEntry {
+  id              Int             @id @default(autoincrement())
   accountEntry    Int
   title           String?         @db.VarChar(255)
   amount          Decimal?        @db.Decimal
   AccountingEntry AccountingEntry @relation(fields: [accountEntry], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@ignore
 }
