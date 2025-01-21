@@ -1,33 +1,41 @@
-self.addEventListener('install', function(event) {
-    event.waitUntil = (
-        caches.open('my-cache').then(function(cache) {
-            return cache.addAll([
-                '/',
-                '/index.html',
-                '/styles.css',
-                '/app.js',
-                '/script.js',
-                '/manifest.json',
-                '/icons/icon-72x72.png',
-                '/icons/icon-96x96.png',
-                '/icons/icon-128x128.png',
-                '/icons/icon-144x144.png',
-                '/icons/icon-152x152.png',
-                '/icons/icon-192x192.png',
-                '/icons/icon-384x384.png',
-                '/icons/icon-512x512.png'
-            ]);
-        })
-    )
-    return self.clients.claim()
+const addResourcesToCache = async (resource) => {
+    try {
+        const cache = await caches.open("v1");
+        await cache.addAll(resource);
+        console.log("files added to cache");
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+self.addEventListener("install", function (event) {
+    event.waitUntil(addResourcesToCache([
+        "/",
+        "/index.html",
+        "/offline.html",
+        "/styles.css",
+        //"/app.js",
+        //"/script.js",
+        //"/manifest.json",
+        "/icon-192x192.png",
+        "/icon-512x512.png",
+    ]));
+    return claim();
 });
 
+const cacheFirst = async (request) => {
+    const responseFromCache = await caches.match(request);
+    if (responseFromCache) {
+        return responseFromCache;
+    }
+    return fetch(request);
+};
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener("fetch", function (event) {
+    console.log("👨‍⚕️", event.request);
     event.respondWith(
-        caches.match(event.request).then(function(response) {
+        caches.match(event.request).then(function (response) {
             return response || fetch(event.request);
-        })
+        }),
     );
 });
-
