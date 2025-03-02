@@ -9,6 +9,7 @@ const addResourcesToCache = async (resource) => {
 };
 
 self.addEventListener("install", function (event) {
+    console.log('Service Worker: Instalando...');
     event.waitUntil(addResourcesToCache([
         "/",
         "/index.html",
@@ -20,7 +21,12 @@ self.addEventListener("install", function (event) {
         "/icon-192x192.png",
         "/icon-512x512.png",
     ]));
-    return claim();
+    return self.skipWaiting();
+});
+
+self.addEventListener('activate', function(event) {
+    console.log('Service Worker: Activado');
+    return self.clients.claim();
 });
 
 const cacheFirst = async (request) => {
@@ -32,10 +38,59 @@ const cacheFirst = async (request) => {
 };
 
 self.addEventListener("fetch", function (event) {
-    console.log("👨‍⚕️", event.request);
+    console.log("👨‍⚕️ Interceptando fetch:", event.request.url);
     event.respondWith(
         caches.match(event.request).then(function (response) {
             return response || fetch(event.request);
         }),
+    );
+});
+
+self.addEventListener('push', function(event) {
+    console.log('Push recibido:', event);
+    
+    let notificationData = {};
+    if (event.data) {
+        try {
+            notificationData = event.data.json();
+            console.log('Datos de la notificación:', notificationData);
+        } catch (e) {
+            console.log('Error al parsear datos:', e);
+            notificationData = {
+                title: 'Notificación',
+                body: event.data.text()
+            };
+        }
+    }
+
+    const options = {
+        body: notificationData.body || 'Notificación sin mensaje',
+        icon: notificationData.icon || '/icon-192x192.png',
+        badge: '/icon-192x192.png',
+        vibrate: [100, 50, 100],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: '1',
+            ...notificationData.data
+        }
+    };
+
+    console.log('Mostrando notificación con opciones:', options);
+
+    event.waitUntil(
+        self.registration.showNotification(notificationData.title || 'Notificación Push', options)
+        .then(() => console.log('Notificación mostrada con éxito'))
+        .catch(error => console.error('Error al mostrar notificación:', error))
+    );
+});
+
+self.addEventListener('notificationclick', function(event) {
+    console.log('Click en notificación:', event);
+    event.notification.close();
+
+    event.waitUntil(
+        clients.openWindow('/')
+        .then(() => console.log('Ventana abierta'))
+        .catch(error => console.error('Error al abrir ventana:', error))
     );
 });
