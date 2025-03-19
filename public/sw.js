@@ -8,6 +8,19 @@ const addResourcesToCache = async (resource) => {
     }
 };
 
+const fallbackDocument = async (request) => {
+    const { method, headers, url } = request;
+
+    try {
+        return fetch(request);
+    } catch (err) {
+        console.log("Fallback response to", url);
+        if (method === "GET" && headers.get("accept").includes("text/html")) {
+            return caches.match("/offline.html");
+        }
+    }
+};
+
 self.addEventListener("install", function (event) {
     event.waitUntil(addResourcesToCache([
         "/",
@@ -23,19 +36,23 @@ self.addEventListener("install", function (event) {
     return claim();
 });
 
+const putInCache = async (request, response) => {
+    const cache = await caches.open("v1");
+    await cache.put(request, response);
+};
+
 const cacheFirst = async (request) => {
     const responseFromCache = await caches.match(request);
     if (responseFromCache) {
         return responseFromCache;
     }
-    return fetch(request);
+    const responseFromNetwork = await fetch(request);
+    putInCache(request, responseFromNetwork.clone());
+    return responseFromNetwork;
 };
 
 self.addEventListener("fetch", function (event) {
-    console.log("👨‍⚕️", event.request);
     event.respondWith(
-        caches.match(event.request).then(function (response) {
-            return response || fetch(event.request);
-        }),
+        cacheFirst(event.request),
     );
 });
