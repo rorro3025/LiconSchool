@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import "@mantine/core/styles.css";
 import type { AppProps } from "next/app";
-import { Workbox } from "workbox-window";
 import { MantineProvider, createTheme } from "@mantine/core";
 
 const theme = createTheme({
@@ -10,16 +9,40 @@ const theme = createTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    console.log(process.env.NODE_ENV);
-    if (
-      //|| process.env.NODE_ENV !== "production"
-      !("serviceWorker" in navigator)
-    ) {
-      console.warn("PWA support is diabled");
-      return;
-    }
-    const wb = new Workbox("sw.js", { scope: "/" });
-    wb.register().then(()=>console.log('service registered')).catch((err)=>console.log(err));
+    const registerServiceWorker = async () => {
+      try {
+        if (!('serviceWorker' in navigator)) {
+          console.warn('Service Worker no soportado en este navegador');
+          return;
+        }
+
+        console.log('Registrando Service Worker...');
+        const registration = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+        console.log('Service Worker registrado con éxito:', registration);
+
+        // Verificar si hay una actualización disponible
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          console.log('Nueva versión del Service Worker encontrada:', newWorker);
+
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              console.log('Estado del nuevo Service Worker:', newWorker.state);
+            });
+          }
+        });
+
+        // Verificar si ya hay un Service Worker activo
+        if (registration.active) {
+          console.log('Service Worker activo:', registration.active.state);
+        }
+
+      } catch (error) {
+        console.error('Error al registrar el Service Worker:', error);
+      }
+    };
+
+    registerServiceWorker();
   }, []);
 
   return (

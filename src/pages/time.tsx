@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import Layout from "@/componets/Layout";
+import MemoryCard from "@/componets/MemoryCard";
 import SocketNative from "@/componets/socketNative";
 import SocketLib from "@/componets/SocketLib";
 
 
 const InactivityDetector = () => {
     const [isInactive, setIsInactive] = useState(false);
-    //const [isConnecting, setIsConnecting] = useState(true)
 
     useEffect(() => {
-
         let inactivityTimeout: any;
 
         const resetInactivityTimeout = () => {
@@ -34,11 +33,15 @@ const InactivityDetector = () => {
             ) : (
                 <p>El usuario está activo.</p>
             )}
-
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                <SocketLib />
-            </div>
-        </Layout>
+            <MemoryCard
+                frontContent="Front content"
+            />
+            <MemoryCard
+                frontContent="Front content"
+            />
+            <MemoryCard
+                frontContent="Front content"
+            />        </Layout>
     );
 };
 

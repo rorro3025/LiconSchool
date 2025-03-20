@@ -10316,6 +10316,7 @@
         "npm:@types/node@^22.7.5",
         "npm:@types/react-dom@18.0.11",
         "npm:@types/react@18.0.28",
+        "npm:@types/web-push@^3.6.4",
         "npm:axios@^1.4.0",
         "npm:dayjs@^1.11.13",
         "npm:eslint-config-next@13.2.3",
@@ -10342,6 +10343,7 @@
         "npm:sharp@~0.33.5",
         "npm:swr@^2.2.5",
         "npm:typescript@4.9.5",
+        "npm:web-push@^3.6.7",
         "npm:workbox-window@7",
         "npm:zustand@^5.0.0-rc.2"
       ]

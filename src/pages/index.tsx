@@ -1,14 +1,15 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Layout from "@/componets/Layout";
-import {useDisclosure} from "@mantine/hooks";
-import {Container, Button, Center, Modal, Box, Input} from "@mantine/core";
-import {FormEvent} from "react";
-import {getData, saveIntoDB} from "@/utils/db";
+import { useDisclosure } from "@mantine/hooks";
+import { Container, Button, Center, Modal, Box, Input, Stack } from "@mantine/core";
+import { FormEvent } from "react";
+import { getData, saveIntoDB } from "@/utils/db";
 import NotificationToast from "@/componets/NotificationToast";
+import NotificationSender from "@/componets/NotificationSender";
 
 function Home() {
     const [httpResponse, setHTTResponse] = useState(null);
-    const [opened, {open, close}] = useDisclosure();
+    const [opened, { open, close }] = useDisclosure();
 
     const handleNotification = () => {
         if (Notification.permission === "granted") {
@@ -55,32 +56,38 @@ function Home() {
 
     return (
         <Layout>
-            <Center>
-                <Button onClick={open} m={2} p={2}>
-                    Login
-                </Button>
-                <Button onClick={handleNotification} m={2} p={2}>
-                    notification
-                </Button>
-                <NotificationToast />
-            </Center>
+            <Stack gap="xl">
+                <Center>
+                    <Button onClick={open} m={2} p={2}>
+                        Login
+                    </Button>
+                    <Button onClick={handleNotification} m={2} p={2}>
+                        notification
+                    </Button>
+                    <NotificationToast />
+                </Center>
 
-            <Modal opened={opened} onClose={close} title="Login">
-                <Box>
-                    <form onSubmit={handleSubmit}>
-                        <Input placeholder="username" type="text" m={12}/>
-                        <Input placeholder="password" type="password" m={12}/>
-                        <Button type="submit" m={12}>
-                            Log
-                        </Button>
-                    </form>
-                </Box>
-            </Modal>
+                <Container>
+                    <NotificationSender />
+                </Container>
 
-            <Container>
-                <p>offline data</p>
-                <pre>{JSON.stringify(httpResponse, null, 2)}</pre>
-            </Container>
+                <Modal opened={opened} onClose={close} title="Login">
+                    <Box>
+                        <form onSubmit={handleSubmit}>
+                            <Input placeholder="username" type="text" m={12} />
+                            <Input placeholder="password" type="password" m={12} />
+                            <Button type="submit" m={12}>
+                                Log
+                            </Button>
+                        </form>
+                    </Box>
+                </Modal>
+
+                <Container>
+                    <p>offline data</p>
+                    <pre>{JSON.stringify(httpResponse, null, 2)}</pre>
+                </Container>
+            </Stack>
         </Layout>
     );
 }
