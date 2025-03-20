@@ -1,14 +1,59 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    h3 {
+        color: #333;
+    }
+
+    p {
+        color: #666;
+    }
+
+    .container {
+        width: 90%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header {
+        background-color: #f4f4f4;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .penguin {
+        width: 300px;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+</style>
+
 <body>
-        <div style="width: 90%; align-items: center; justify-content: center;">
-            <h3>This is the offline.html page</h3>
+    <div class="container">
+        <div class="header">
+            <h3>Offline</h3>
+            <p>Sorry, you are offline. Please check your internet connection.</p>
         </div>
+        <div class="container">
+            <img src="./penguin1.png" alt="penguin1" class="penguin">
+        </div>
+    </div>
 </body>
+
 </html>

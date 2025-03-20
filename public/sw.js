@@ -1,6 +1,8 @@
+const CACHE_NAME = "v1";
+
 const addResourcesToCache = async (resource) => {
     try {
-        const cache = await caches.open("v1");
+        const cache = await caches.open(CACHE_NAME);
         await cache.addAll(resource);
         console.log("files added to cache");
     } catch (err) {
@@ -10,6 +12,12 @@ const addResourcesToCache = async (resource) => {
 
 self.addEventListener("install", function (event) {
     console.log('Service Worker: Instalando...');
+    event.waitUntil(
+        (async () => {
+            const cache = await caches.open(CACHE_NAME);
+            await cache.add(new Request('offline.html', { cache: 'reload' }));
+        })()
+    )
     event.waitUntil(addResourcesToCache([
         "/",
         "/index.html",
@@ -24,7 +32,14 @@ self.addEventListener("install", function (event) {
     return self.skipWaiting();
 });
 
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', function (event) {
+    event.waitUntil(
+        (async () => {
+            if ('navigationPreload' in self.registration) {
+                await self.registration.navigationPreload.enable();
+            }
+        })()
+    )
     console.log('Service Worker: Activado');
     return self.clients.claim();
 });
@@ -40,15 +55,35 @@ const cacheFirst = async (request) => {
 self.addEventListener("fetch", function (event) {
     console.log("👨‍⚕️ Interceptando fetch:", event.request.url);
     event.respondWith(
+        (async () => {
+            try {
+                const preloadPage = await event.preloadResponse;
+                if (preloadPage) {
+                    console.log('Usando página pre-cargada');
+                    return preloadPage;
+                }
+                const networkResponse = await fetch(event.request);
+                return networkResponse
+            } catch (err) {
+                console.error('Error al recuperar la respuesta de la red:', err);
+                const cache = await caches.open(CACHE_NAME);
+                const cachedResponse = await cache.match('offline.html');
+                return cachedResponse
+            }
+        })()
+    );
+    /*
+    event.respondWith(
         caches.match(event.request).then(function (response) {
             return response || fetch(event.request);
         }),
     );
+    */
 });
 
-self.addEventListener('push', function(event) {
+self.addEventListener('push', function (event) {
     console.log('Push recibido:', event);
-    
+
     let notificationData = {};
     if (event.data) {
         try {
@@ -79,18 +114,18 @@ self.addEventListener('push', function(event) {
 
     event.waitUntil(
         self.registration.showNotification(notificationData.title || 'Notificación Push', options)
-        .then(() => console.log('Notificación mostrada con éxito'))
-        .catch(error => console.error('Error al mostrar notificación:', error))
+            .then(() => console.log('Notificación mostrada con éxito'))
+            .catch(error => console.error('Error al mostrar notificación:', error))
     );
 });
 
-self.addEventListener('notificationclick', function(event) {
+self.addEventListener('notificationclick', function (event) {
     console.log('Click en notificación:', event);
     event.notification.close();
 
     event.waitUntil(
         clients.openWindow('/')
-        .then(() => console.log('Ventana abierta'))
-        .catch(error => console.error('Error al abrir ventana:', error))
+            .then(() => console.log('Ventana abierta'))
+            .catch(error => console.error('Error al abrir ventana:', error))
     );
 });
