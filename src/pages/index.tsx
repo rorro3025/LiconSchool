@@ -15,6 +15,7 @@ function Home() {
     const handleNotification = async () => {
         const cache = await caches.open('v1' + 'ar1')
         const response = await makeHTTPRequest('/api/journal?userId=1', { method: 'GET' })
+        console.log(response)
         if (!response.success) return console.log(response.message)
         await cache.addAll(response.data)
     };

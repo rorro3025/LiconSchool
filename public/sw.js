@@ -22,16 +22,19 @@ self.addEventListener("install", function (event) {
         "/icon-512x512.png",
     ]));
 
+    /*
     event.waitUntil(
         (async () => {
             const cache = await caches.open(CACHE_NAME);
             await cache.add(new Request('offline.html', { cache: 'reload' }));
         })()
     )
+    */
     return self.skipWaiting();
 });
 
 self.addEventListener('activate', function (event) {
+    /*
     event.waitUntil(
         (async () => {
             if ('navigationPreload' in self.registration) {
@@ -39,6 +42,7 @@ self.addEventListener('activate', function (event) {
             }
         })()
     )
+        */
     console.log('Service Worker: Activado');
     return self.clients.claim();
 });
@@ -53,6 +57,27 @@ const cacheFirst = async (request) => {
     return responseFromNetwork;
 };
 
+self.addEventListener('fetch', function (e) {
+    e.respondWith(
+        (async function () {
+            const cache = await caches.open(CACHE_NAME)
+            const cacheResponse = await cache.match(e.request)
+            const networkResponsePromise = fetch(e.request)
+
+            if (e.request.url.startsWith('http://') || e.request.url.startsWith('https://')) {
+                e.waitUntil(
+                    (async function () {
+                        const netwirkResponse = await networkResponsePromise
+                        await cache.put(e.request, netwirkResponse.clone())
+                    })()
+                )
+            }
+
+            return cacheResponse || networkResponsePromise
+        })()
+    )
+})
+/*
 self.addEventListener("fetch", function (event) {
     console.log("👨‍⚕️ Interceptando fetch:", event.request.url);
     event.respondWith(
@@ -73,12 +98,11 @@ self.addEventListener("fetch", function (event) {
             }
         })()
     );
-    /*
     event.respondWith(
         cacheFirst(event.request),
     );
-    */
 });
+    */
 
 self.addEventListener('push', function (event) {
     console.log('Push recibido:', event);
