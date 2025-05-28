@@ -37,10 +37,18 @@
         text-align: center;
     }
 
+    .subContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .penguin {
-        width: 300px;
-        max-width: 300px;
+        width: 250px;
+        max-width: 250px;
         margin: 0 auto;
+        border-radius: 20px;
     }
 </style>
 
@@ -50,10 +58,35 @@
             <h3>Offline</h3>
             <p>Sorry, you are offline. Please check your internet connection.</p>
         </div>
-        <div class="container">
-            <img src="./penguin1.png" alt="penguin1" class="penguin">
+        <div class="subContainer">
+            <form class="form">
+                <div style="margin: 10px 0;">
+                    <label for="comments">Comments:</label><br>
+                    <textarea id="comments" name="comments" rows="4" style="width: 100%; margin-top: 5px;"></textarea>
+                </div>
+                <div style="margin: 10px 0;">
+                    <label for="ranking">Ranking:</label><br>
+                    <select id="ranking" name="ranking" style="width: 100%; margin-top: 5px; padding: 5px;">
+                        <option value="">Select a rating</option>
+                        <option value="malo">Malo</option>
+                        <option value="bueno">Bueno</option>
+                        <option value="excelente">Regular</option>
+                        <option value="excelente">Excelente</option>
+                    </select>
+                    <input type="submit" value="Send">
+                </div>
+            </form>
+        </div>
+        <div class="subContainer">
+            <img src="./penguin1.png" alt="penguin1" class="penguin" loading="eager" fetchpriority="high" decoding="sync" crossorigin="anonymous">
         </div>
     </div>
+    <script>
+        const form = document.querySelector('.form').addEventListener('submit', (e) => {
+            e.preventDefault()
+            console.log(form)
+        })
+    </script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient,TranslateConfig } from "@aws-sdk/lib-dynamodb";
 
-const REGION: string = "us-east-1";
+const REGION: string = "mx-central-1";
 
 const s3Client = new S3Client({ region: REGION });
 

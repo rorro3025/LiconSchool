@@ -12,23 +12,22 @@ const addResourcesToCache = async (resource) => {
 
 self.addEventListener("install", function (event) {
     console.log('Service Worker: Instalando...');
+
+    event.waitUntil(addResourcesToCache([
+        "/",
+        "/offline.html",
+        //"/styles.css",
+        "/penguin1.png",
+        "/icon-192x192.png",
+        "/icon-512x512.png",
+    ]));
+
     event.waitUntil(
         (async () => {
             const cache = await caches.open(CACHE_NAME);
             await cache.add(new Request('offline.html', { cache: 'reload' }));
         })()
     )
-    event.waitUntil(addResourcesToCache([
-        "/",
-        "/index.html",
-        "/offline.html",
-        "/styles.css",
-        //"/app.js",
-        //"/script.js",
-        //"/manifest.json",
-        "/icon-192x192.png",
-        "/icon-512x512.png",
-    ]));
     return self.skipWaiting();
 });
 

@@ -5,37 +5,26 @@ import { Container, Button, Center, Modal, Box, Input, Stack } from "@mantine/co
 import { FormEvent } from "react";
 import { getData, saveIntoDB } from "@/utils/db";
 import NotificationToast from "@/componets/NotificationToast";
-import NotificationSender from "@/componets/NotificationSender";
+import Feedback from "@/componets/Feedback";
+import { makeHTTPRequest } from "@/utils";
 
 function Home() {
-    const [httpResponse, setHTTResponse] = useState(null);
+    const [httpResponse, setHTTResponse] = useState<Record<string, any> | null>(null);
     const [opened, { open, close }] = useDisclosure();
 
-    const handleNotification = () => {
-        if (Notification.permission === "granted") {
-            new Notification("Hello world!");
-        } else {
-            Notification.requestPermission().then(function (permission) {
-                if (permission === "granted") {
-                    new Notification("new users created", {
-                        body: "New user RHernanez was created",
-                        data: "data",
-                        icon: "/favicon.ico",
-                    });
-                }
-            });
-        }
+    const handleNotification = async () => {
+        const cache = await caches.open('v1' + 'ar1')
+        const response = await makeHTTPRequest('/api/journal?userId=1', { method: 'GET' })
+        if (!response.success) return console.log(response.message)
+        await cache.addAll(response.data)
     };
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => e.preventDefault();
     const getServerData = async () => {
         try {
-            const response = await fetch(
-                "https://xj7fquaclh.execute-api.us-east-1.amazonaws.com/bi/glossary"
-            );
-            const data = await response.json();
-            console.log(data);
-            setHTTResponse(data);
-            await saveIntoDB("1", data);
+            const response = await makeHTTPRequest('/api/journal?userId=1', { method: 'GET' })
+            if (!response.success) return console.log(response.message)
+            setHTTResponse(response.data);
+            await saveIntoDB("1", response.data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -62,14 +51,10 @@ function Home() {
                         Login
                     </Button>
                     <Button onClick={handleNotification} m={2} p={2}>
-                        notification
+                        cache something
                     </Button>
                     <NotificationToast />
                 </Center>
-
-                <Container>
-                    <NotificationSender />
-                </Container>
 
                 <Modal opened={opened} onClose={close} title="Login">
                     <Box>
@@ -84,8 +69,16 @@ function Home() {
                 </Modal>
 
                 <Container>
+                    <Feedback />
+                </Container>
+
+                <Container>
                     <p>offline data</p>
-                    <pre>{JSON.stringify(httpResponse, null, 2)}</pre>
+                    <pre>{JSON.stringify(httpResponse)}</pre>
+                </Container>
+                <Container>
+                    <p>offline data 2</p>
+                    <pre>{JSON.stringify(httpResponse)}</pre>
                 </Container>
             </Stack>
         </Layout>

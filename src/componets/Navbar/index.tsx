@@ -30,6 +30,7 @@ export default function Navbar() {
         <NavLink href={"/time"} label={"User active"} />
         <NavLink href={"/testSWR"} label={"SWR"} />
         <NavLink href={"/testZustand"} label={"Zustand"} />
+        <NavLink href={"/httpClient"} label={"client"} />
       </Box>
     </div>
   );

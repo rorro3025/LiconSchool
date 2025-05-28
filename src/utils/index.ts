@@ -1,17 +1,5 @@
-//import fetch2 from "node-fetch"
+import { TaskResult } from '@/interfaces/server';
 import { useState } from 'react'
-
-interface SuccessResponse {
-  success: true
-}
-
-interface FailResponse {
-  success: false,
-  message: string
-}
-
-type APIResponse<E extends SuccessResponse> = E | FailResponse
-
 
 export const getStatus = async (url: string): Promise<boolean> => {
   const response = await fetch(url);
@@ -31,11 +19,11 @@ export const swrFetcher = async (url: string) => {
 export const makeHTTPRequest = async (url: string, config: {
   method: string,
   body?: any
-}): Promise<APIResponse<{success: true, data: any}>> => {
+}): Promise<TaskResult<{success: true, data: any}>> => {
   const applyConfig = {
     ...config,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json'
     },
   }
 
@@ -60,8 +48,6 @@ export const makeHTTPRequest = async (url: string, config: {
       message: String(e)
     }
   }
-
-
 }
 
 export const useBoolean = () => {

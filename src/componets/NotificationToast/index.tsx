@@ -36,6 +36,17 @@ export default function NotificationToast() {
             if (existingSubscription) {
                 console.log('Usando suscripción existente');
                 setSubscription(existingSubscription);
+                console.log('Enviando suscripción al servidor...');
+                const response = await fetch('/api/push/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(existingSubscription)
+                });
+
+                const responseData = await response.json();
+                console.log('Respuesta del servidor:', responseData);
                 return;
             }
 
