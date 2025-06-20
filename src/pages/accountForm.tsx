@@ -4,7 +4,7 @@ import Layout from "@/componets/Layout";
 import { FormEvent, useState } from "react";
 import AccountsList from "@/componets/AccountsList";
 
-export default function accountForm() {
+export default function AccountForm() {
 
   const [message, setMessage] = useState('')
   const [data, setData] = useState({

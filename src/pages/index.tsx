@@ -13,8 +13,9 @@ function Home() {
     const [opened, { open, close }] = useDisclosure();
 
     const handleNotification = async () => {
-         const synReg = await navigator.serviceWorker.ready
+        const synReg = await navigator.serviceWorker.ready
         try {
+            //@ts-ignore
             synReg.sync.register('saveFeedback', {
                 data: {
                     // Add any data you want to pass to the sync event
@@ -26,7 +27,7 @@ function Home() {
                 }
             })
             console.log('registred sync')
-        }catch(e){
+        } catch (e) {
             console.log(e)
         }
         /*
@@ -36,7 +37,7 @@ function Home() {
         if (!response.success) return console.log(response.message)
         await cache.addAll(response.data)
         */
-        
+
     };
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => e.preventDefault();
     const getServerData = async () => {
