@@ -5,7 +5,7 @@ import { IconHomeBitcoin } from "@tabler/icons-react";
 export default function Navbar() {
   const [opened, { toggle }] = useDisclosure();
   return (
-    <div style={{ position: "fixed" }}>
+    <div style={{ position: "fixed", zIndex: '10' }}>
       <Burger
         opened={opened}
         onClick={toggle}
@@ -26,7 +26,7 @@ export default function Navbar() {
         />
         <NavLink href={"/sql"} label={"sql"} />
         <NavLink href={"/files"} label={"files"} />
-        <NavLink href={"/pokemon"} label={"Pokemon"} />
+        <NavLink href={"/libreApi"} label={"libre list"} />
         <NavLink href={"/time"} label={"User active"} />
         <NavLink href={"/testSWR"} label={"SWR"} />
         <NavLink href={"/testZustand"} label={"Zustand"} />

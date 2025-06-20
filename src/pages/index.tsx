@@ -13,11 +13,30 @@ function Home() {
     const [opened, { open, close }] = useDisclosure();
 
     const handleNotification = async () => {
+         const synReg = await navigator.serviceWorker.ready
+        try {
+            synReg.sync.register('saveFeedback', {
+                data: {
+                    // Add any data you want to pass to the sync event
+                    timestamp: Date.now(),
+                    userId: '1', // Example user ID
+                    action: 'saveFeedback',
+                    message: 'I love you sandy'
+                    // Add more properties as needed
+                }
+            })
+            console.log('registred sync')
+        }catch(e){
+            console.log(e)
+        }
+        /*
         const cache = await caches.open('v1' + 'ar1')
         const response = await makeHTTPRequest('/api/journal?userId=1', { method: 'GET' })
         console.log(response)
         if (!response.success) return console.log(response.message)
         await cache.addAll(response.data)
+        */
+        
     };
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => e.preventDefault();
     const getServerData = async () => {

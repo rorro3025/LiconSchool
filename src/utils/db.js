@@ -19,7 +19,7 @@ export const initDB = async () => {
 
 export const saveIntoDB = async (key, data) => {
     const db = await initDB();
-    await db.put(STORE_NAME, { id: key, data });
+    await db.put(STORE_NAME, { id: key, ...data });
 };
 
 export const getData = async (key) => {

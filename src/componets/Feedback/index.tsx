@@ -1,12 +1,14 @@
-import { ChangeEvent, FormEvent, useRef, useState, useEffect } from 'react'
+import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import { SignatureCanvas } from 'react-signature-canvas'
 import { Button } from '@mantine/core'
+import { saveIntoDB } from '@/utils/db'
 
 export default function Feedback() {
     const canva = useRef<SignatureCanvas | null>(null)
 
     const [formData, setFormData] = useState({
+        order: '',
         calificacion: '',
         email: '',
     })
@@ -27,47 +29,25 @@ export default function Feedback() {
         })
     }
 
-    // Función para guardar en localStorage
-    const saveFormOffline = (data: any) => {
-        const stored = JSON.parse(localStorage.getItem('offlineForms') || '[]');
-        stored.push(data);
-        localStorage.setItem('offlineForms', JSON.stringify(stored));
-    };
-
-    // Simulación de envío (reemplaza por tu lógica real de envío)
-    const sendForm = async (data: any) => {
-        // Aquí deberías hacer el fetch/post real
-        // Por ahora, simula éxito
-        return Promise.resolve(true);
-    };
-
-    // Al volver online, intenta enviar los formularios almacenados
-    useEffect(() => {
-        const trySendStoredForms = async () => {
-            const stored = JSON.parse(localStorage.getItem('offlineForms') || '[]');
-            if (stored.length === 0) return;
-            const remaining = [];
-            for (const form of stored) {
-                try {
-                    const ok = await sendForm(form);
-                    if (!ok) remaining.push(form);
-                } catch {
-                    remaining.push(form);
-                }
-            }
-            localStorage.setItem('offlineForms', JSON.stringify(remaining));
-        };
-        window.addEventListener('online', trySendStoredForms);
-        // Intenta al montar también
-        trySendStoredForms();
-        return () => window.removeEventListener('online', trySendStoredForms);
-    }, []);
+    const saveFormOffline = async (form: {
+        order: string,
+        calificacion: string,
+        email: string,
+        signature: string,
+    }) => {
+        await saveIntoDB(form.order, form)
+        const registration = await navigator.serviceWorker.ready
+        //@ts-ignore
+        registration.sync.register(`feedback-${form.order}`)
+    }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if(!canva.current) return alert('no canvas')
-        if(canva.current.isEmpty()) return alert('canva empty')
+        if (!canva.current) return alert('no canvas')
+        if (canva.current.isEmpty()) return alert('canva empty')
+        if (!formData.order) return alert('Numer o de orden necesario')
         const data = {
+            order: formData.order,
             calificacion: formData.calificacion,
             email: formData.email,
             signature: canva.current.toDataURL(),
@@ -77,12 +57,9 @@ export default function Feedback() {
             alert('Estás offline. El formulario se guardó y se enviará cuando vuelvas a estar online.');
             return;
         }
+        console.log('online', data)
         // Aquí deberías hacer el envío real
-        sendForm(data).then(() => {
-            alert('Formulario enviado correctamente');
-        }).catch(() => {
-            alert('Error al enviar el formulario');
-        });
+        alert('Done');
     }
 
     return (
@@ -102,6 +79,12 @@ export default function Feedback() {
             <br />
             <div className={styles.formGroup}>
                 <label>
+                    Order:
+                </label>
+                <input type="number" name="order" required onChange={handleChangeInput} className={styles.formGroup} />
+            </div>
+            <div className={styles.formGroup}>
+                <label>
                     Email:
                 </label>
                 <input type="email" name="email" required onChange={handleChangeInput} className={styles.formGroup} />
@@ -111,8 +94,10 @@ export default function Feedback() {
                 <label>
                     Firma:
                 </label>
-                <div className={styles.canvasContainer}>
-                    <SignatureCanvas ref={canva} penColor='darkCyan' />
+                <div className={styles.signatureContainer}>
+                    <SignatureCanvas ref={canva} penColor='darkCyan' canvasProps={{
+                        style: { width: '100%', minHeight: '150px' }
+                    }} />
                     <div>
                         <Button onClick={() => canva.current?.clear()} variant="gradient" fullWidth />
                     </div>

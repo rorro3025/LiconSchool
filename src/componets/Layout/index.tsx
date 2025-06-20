@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Navbar from "../Navbar";
-import { Box, Center, Container } from "@mantine/core";
+import { Grid } from "@mantine/core";
+import OfflineHeader from "../OfflineHeader";
 
 interface Props {
   children: ReactNode;
@@ -9,10 +10,15 @@ interface Props {
 function Layout({ children }: Props) {
   return (
     <>
-      <Navbar />
-      <Container px={3} py={4}>
-        {children}
-      </Container>
+      <OfflineHeader />
+      <Grid >
+        <Grid.Col span={1}>
+          <Navbar />
+        </Grid.Col >
+        <Grid.Col>
+          {children}
+        </Grid.Col>
+      </Grid>
     </>
   );
 }
