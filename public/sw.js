@@ -1,3 +1,5 @@
+const { request } = require("http");
+
 const CACHE_NAME = "v1";
 
 const addResourcesToCache = async (resource) => {
@@ -63,7 +65,7 @@ self.addEventListener('fetch', function (e) {
             const cacheResponse = await cache.match(e.request)
             const networkResponsePromise = fetch(e.request)
 
-            if (e.request.url.startsWith('http://') || e.request.url.startsWith('https://')) {
+            if (e.request.url.startsWith('http://') || e.request.url.startsWith('https://') &&  request.method === 'GET') {
                 e.waitUntil(
                     (async function (){
                         const netwirkResponse = await networkResponsePromise

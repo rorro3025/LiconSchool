@@ -77,18 +77,6 @@ function Home() {
                     <NotificationToast />
                 </Center>
 
-                <Modal opened={opened} onClose={close} title="Login">
-                    <Box>
-                        <form onSubmit={handleSubmit}>
-                            <Input placeholder="username" type="text" m={12} />
-                            <Input placeholder="password" type="password" m={12} />
-                            <Button type="submit" m={12}>
-                                Log
-                            </Button>
-                        </form>
-                    </Box>
-                </Modal>
-
                 <Container>
                     <Feedback />
                 </Container>
@@ -102,6 +90,18 @@ function Home() {
                     <pre>{JSON.stringify(httpResponse)}</pre>
                 </Container>
             </Stack>
+            <Modal opened={opened} onClose={close} title="Login">
+                <Box>
+                    <form onSubmit={handleSubmit}>
+                        <Input placeholder="username" type="text" m={12} />
+                        <Input placeholder="password" type="password" m={12} />
+                        <Button type="submit" m={12}>
+                            Log
+                        </Button>
+                    </form>
+                </Box>
+            </Modal>
+
         </Layout>
     );
 }

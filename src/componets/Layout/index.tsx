@@ -20,10 +20,10 @@ function Layout({ children, title }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Grid.Col>
-        <Navbar />
+        <OfflineHeader />
         <Grid>
+          <Navbar />
           <Grid.Col span={12} style={{ padding: "20px" }}>
-            <OfflineHeader />
             {children}
           </Grid.Col>
         </Grid>
