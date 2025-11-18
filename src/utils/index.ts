@@ -1,5 +1,7 @@
 import { TaskResult } from '@/interfaces/server';
 import { useState } from 'react'
+import jwt from 'jsonwebtoken'
+import { NextApiRequest } from 'next';
 
 export const getStatus = async (url: string): Promise<boolean> => {
   const response = await fetch(url);
@@ -19,7 +21,7 @@ export const swrFetcher = async (url: string) => {
 export const makeHTTPRequest = async (url: string, config: {
   method: string,
   body?: any
-}): Promise<TaskResult<{success: true, data: any}>> => {
+}): Promise<TaskResult<{ success: true, data: any }>> => {
   const applyConfig = {
     ...config,
     headers: {
@@ -71,4 +73,15 @@ export const useBoolean = () => {
     setTrue,
     setFalse,
   } as const;
+}
+export const tokenValidation = (req: NextApiRequest) => {
+  try {
+    console.log(req.cookies)
+    console.log(req.headers)
+    //const decoded = jwt.decode(req.cookies)
+    return true
+  } catch (e) {
+    console.log(e)
+    return false
+  }
 }

@@ -1,5 +1,3 @@
-const { request } = require("http");
-
 const CACHE_NAME = "v1";
 
 const addResourcesToCache = async (resource) => {
@@ -65,16 +63,16 @@ self.addEventListener('fetch', function (e) {
             const cacheResponse = await cache.match(e.request)
             const networkResponsePromise = fetch(e.request)
 
-            if (e.request.url.startsWith('http://') || e.request.url.startsWith('https://') &&  request.method === 'GET') {
+            if (e.request.url.startsWith('http://') || e.request.url.startsWith('https://') && request.method === 'GET') {
                 e.waitUntil(
-                    (async function (){
+                    (async function () {
                         const netwirkResponse = await networkResponsePromise
                         await cache.put(e.request, netwirkResponse.clone())
                     })()
                 )
             }
 
-            return cacheResponse || networkResponsePromise
+            return networkResponsePromise || cacheResponse
         })()
     )
 })
@@ -154,15 +152,15 @@ self.addEventListener('sync', (event) => {
 
         const request = indexedDB.open(dbName, 1)
 
-        request.onerror = function (event)  {
+        request.onerror = function (event) {
             console.warn('Error initializing db', event)
         }
 
         request.onsuccess = function (event) {
             console.log('todo: send to derver')
-            dbCon = request.result 
-            const transaction = dbCon.transaction([storeName]) 
-            const store = transaction.objectStore(storeName) 
+            dbCon = request.result
+            const transaction = dbCon.transaction([storeName])
+            const store = transaction.objectStore(storeName)
             const feedbackReq = store.get(order)
 
             feedbackReq.onerror = function (event) {
@@ -172,11 +170,11 @@ self.addEventListener('sync', (event) => {
             feedbackReq.onsuccess = async function (event) {
                 console.log(feedbackReq.result)
                 const httpResponse = await fetch('/api/journal', {
-                   headers: {
-                       'Content-Type': 'application/json',
-                   },
-                   method: 'POST',  
-                   body: JSON.stringify({odm: order})
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({ odm: order })
                 })
                 console.log('send...')
                 console.log(httpResponse.status)
@@ -185,7 +183,7 @@ self.addEventListener('sync', (event) => {
 
         //event.waitUntil(fetch(event))
     } else {
-        console.log('Other tag' )
+        console.log('Other tag')
     }
 
 })

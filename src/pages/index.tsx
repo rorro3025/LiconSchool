@@ -7,11 +7,11 @@ import { getData, saveIntoDB } from "@/utils/db";
 import NotificationToast from "@/componets/NotificationToast";
 import Feedback from "@/componets/Feedback";
 import { makeHTTPRequest } from "@/utils";
+import Timer from "@/componets/Clock/Timer";
 
 function Home() {
     const [httpResponse, setHTTResponse] = useState<Record<string, any> | null>(null);
     const [opened, { open, close }] = useDisclosure();
-
     const handleNotification = async () => {
         const synReg = await navigator.serviceWorker.ready
         try {
@@ -90,6 +90,9 @@ function Home() {
                     <pre>{JSON.stringify(httpResponse)}</pre>
                 </Container>
             </Stack>
+            <Container>
+                <Timer minutes={2} />
+            </Container>
             <Modal opened={opened} onClose={close} title="Login">
                 <Box>
                     <form onSubmit={handleSubmit}>

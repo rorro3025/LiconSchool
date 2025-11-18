@@ -46,7 +46,7 @@ const GeoFenceMap = ({ coordinates }: Props) => {
                 weight: 2
             }).addTo(leafletMap);
 
-            console.log(newCircle)
+            console.log('n', e.latlng.lat, e.latlng.lng)
             setFences(prev => [...prev, newCircle]);
         });
 
