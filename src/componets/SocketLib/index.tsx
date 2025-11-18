@@ -19,7 +19,7 @@ export default function SocketNative() {
         })
 
         return () => { socket.off('message') }
-    }, [])
+    }, [messages])
 
 
     return (

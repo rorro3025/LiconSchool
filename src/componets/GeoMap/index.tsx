@@ -53,7 +53,7 @@ const GeoFenceMap = ({ coordinates }: Props) => {
         return () => {
             leafletMap.remove();
         };
-    }, []);
+    },[coordinates]);
 
     return (
         <div>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Layout from "@/componets/Layout";
 import GoogleMap from "@/componets/GeoMap/MapGoogleV";
 //import HTTPClient from "@/componets/HTTPClient";
@@ -16,24 +15,8 @@ const DynamicGeoFenceMap = dynamic(() => import('@/componets/GeoMap'), {
 
 
 export default function client() {
-  const [coordinates, setCoordinates] = useState<{ latitude: number; longitude: number } | null>(null);
 
-  useEffect(() => {
-    /*
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log("Ubicación actual:", position.coords);
-        setCoordinates({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
-        });
-      });
-    } else {
-      console.log("Geolocalización no está disponible");
-    }
-    */
-    getLocationCoords().catch(null)
-  }, []);
+  /*
   const getLocationCoords = async () => {
     try {
       const response = await fetch('/api/aws/location');
@@ -48,6 +31,7 @@ export default function client() {
     }
 
   }
+  */
   return (
     <Layout>
       {/*
