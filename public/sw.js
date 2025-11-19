@@ -1,119 +1,200 @@
-/**
- * Copyright 2018 Google Inc. All Rights Reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *     http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+const CACHE_NAME = "v1";
 
-// If the loader is already loaded, just stop.
-if (!self.define) {
-    let registry = {};
+const addResourcesToCache = async (resource) => {
+    try {
+        const cache = await caches.open(CACHE_NAME);
+        await cache.addAll(resource);
+        console.log("files added to cache");
+    } catch (err) {
+        console.log(err);
+    }
+};
 
-    // Used for `eval` and `importScripts` where we can't get script URL by other means.
-    // In both cases, it's safe to use a global var because those functions are synchronous.
-    let nextDefineUri;
-
-    const singleRequire = (uri, parentUri) => {
-        uri = new URL(uri + ".js", parentUri).href;
-        return registry[uri] || (
-            new Promise((resolve) => {
-                if ("document" in self) {
-                    const script = document.createElement("script");
-                    script.src = uri;
-                    script.onload = resolve;
-                    document.head.appendChild(script);
-                } else {
-                    nextDefineUri = uri;
-                    importScripts(uri);
-                    resolve();
-                }
-            })
-                .then(() => {
-                    let promise = registry[uri];
-                    if (!promise) {
-                        throw new Error(
-                            `Module ${uri} didn’t register its module`,
-                        );
-                    }
-                    return promise;
-                })
-        );
-    };
-
-    self.define = (depsNames, factory) => {
-        const uri = nextDefineUri ||
-            ("document" in self ? document.currentScript.src : "") ||
-            location.href;
-        if (registry[uri]) {
-            // Module is already loading or loaded.
-            return;
-        }
-        let exports = {};
-        const require = (depUri) => singleRequire(depUri, uri);
-        const specialDeps = {
-            module: { uri },
-            exports,
-            require,
-        };
-        registry[uri] = Promise.all(depsNames.map(
-            (depName) => specialDeps[depName] || require(depName),
-        )).then((deps) => {
-            factory(...deps);
-            return exports;
-        });
-    };
-}
-define(["./workbox-8f0e986c"], function (workbox) {
-    "use strict";
-
-    importScripts("fallback-development.js");
-    self.skipWaiting();
-    workbox.clientsClaim();
-    workbox.registerRoute(
+self.addEventListener("install", function (event) {
+    console.log('Service Worker: Instalando...');
+    event.waitUntil(addResourcesToCache([
         "/",
-        new workbox.NetworkFirst({
-            "cacheName": "start-url",
-            plugins: [{
-                cacheWillUpdate: async ({
-                    request,
-                    response,
-                    event,
-                    state,
-                }) => {
-                    if (response && response.type === "opaqueredirect") {
-                        return new Response(response.body, {
-                            status: 200,
-                            statusText: "OK",
-                            headers: response.headers,
-                        });
-                    }
-                    return response;
-                },
-            }, {
-                handlerDidError: async ({
-                    request,
-                }) => self.fallback(request),
-            }],
-        }),
-        "GET",
+        "/offline.html",
+        //"/styles.css",
+        "/penguin1.png",
+        "/icon-192x192.png",
+        "/icon-512x512.png",
+    ]));
+
+    /*
+    event.waitUntil(
+        (async () => {
+            const cache = await caches.open(CACHE_NAME);
+            await cache.add(new Request('offline.html', { cache: 'reload' }));
+        })()
+    )
+    */
+    return self.skipWaiting();
+});
+
+self.addEventListener('activate', function (event) {
+    /*
+    event.waitUntil(
+        (async () => {
+            if ('navigationPreload' in self.registration) {
+                await self.registration.navigationPreload.enable();
+            }
+        })()
+    )
+        */
+    console.log('Service Worker: Activado');
+    return self.clients.claim();
+});
+
+const cacheFirst = async (request) => {
+    const responseFromCache = await caches.match(request);
+    if (responseFromCache) {
+        return responseFromCache;
+    }
+    const responseFromNetwork = await fetch(request);
+    putInCache(request, responseFromNetwork.clone());
+    return responseFromNetwork;
+};
+
+self.addEventListener('fetch', function (e) {
+    e.respondWith(
+        (async function () {
+            const cache = await caches.open(CACHE_NAME)
+            const cacheResponse = await cache.match(e.request)
+            const networkResponsePromise = fetch(e.request)
+
+            if (e.request.url.startsWith('http://') || e.request.url.startsWith('https://') && request.method === 'GET') {
+                e.waitUntil(
+                    (async function () {
+                        const netwirkResponse = await networkResponsePromise
+                        await cache.put(e.request, netwirkResponse.clone())
+                    })()
+                )
+            }
+
+            return networkResponsePromise || cacheResponse
+        })()
+    )
+})
+/*
+self.addEventListener("fetch", function (event) {
+    console.log("👨‍⚕️ Interceptando fetch:", event.request.url);
+    event.respondWith(
+        (async () => {
+            try {
+                const preloadPage = await event.preloadResponse;
+                if (preloadPage) {
+                    console.log('Usando página pre-cargada');
+                    return preloadPage;
+                }
+                const networkResponse = await fetch(event.request);
+                return networkResponse
+            } catch (err) {
+                console.error('Error al recuperar la respuesta de la red:', err);
+                const cache = await caches.open(CACHE_NAME);
+                const cachedResponse = await cache.match('offline.html');
+                return cachedResponse
+            }
+        })()
     );
-    workbox.registerRoute(
-        /.*/i,
-        new workbox.NetworkOnly({
-            "cacheName": "dev",
-            plugins: [{
-                handlerDidError: async ({
-                    request,
-                }) => self.fallback(request),
-            }],
-        }),
-        "GET",
+    event.respondWith(
+        cacheFirst(event.request),
     );
 });
-//# sourceMappingURL=sw.js.map
+    */
+
+self.addEventListener('push', function (event) {
+    console.log('Push recibido:', event);
+
+    let notificationData = {};
+    if (event.data) {
+        try {
+            notificationData = event.data.json();
+            console.log('Datos de la notificación:', notificationData);
+        } catch (e) {
+            console.log('Error al parsear datos:', e);
+            notificationData = {
+                title: 'Notificación',
+                body: event.data.text()
+            };
+        }
+    }
+
+    const options = {
+        body: notificationData.body || 'Notificación sin mensaje',
+        icon: notificationData.icon || '/icon-192x192.png',
+        badge: '/icon-192x192.png',
+        vibrate: [100, 50, 100],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: '1',
+            ...notificationData.data
+        }
+    };
+
+    console.log('Mostrando notificación con opciones:', options);
+
+    event.waitUntil(
+        self.registration.showNotification(notificationData.title || 'Notificación Push', options)
+            .then(() => console.log('Notificación mostrada con éxito'))
+            .catch(error => console.error('Error al mostrar notificación:', error))
+    );
+});
+
+
+self.addEventListener('sync', (event) => {
+    let dbCon = null
+    const dbName = 'myPWADB';
+
+    if (event.tag.startsWith('feedback')) {
+        const storeName = 'api-response';
+        const order = event.tag.split('-')[1]
+
+        const request = indexedDB.open(dbName, 1)
+
+        request.onerror = function (event) {
+            console.warn('Error initializing db', event)
+        }
+
+        request.onsuccess = function (event) {
+            console.log('todo: send to derver')
+            dbCon = request.result
+            const transaction = dbCon.transaction([storeName])
+            const store = transaction.objectStore(storeName)
+            const feedbackReq = store.get(order)
+
+            feedbackReq.onerror = function (event) {
+                console.log('some error getting feedback')
+            }
+
+            feedbackReq.onsuccess = async function (event) {
+                console.log(feedbackReq.result)
+                const httpResponse = await fetch('/api/journal', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({ odm: order })
+                })
+                console.log('send...')
+                console.log(httpResponse.status)
+            }
+        }
+
+        //event.waitUntil(fetch(event))
+    } else {
+        console.log('Other tag')
+    }
+
+})
+
+self.addEventListener('notificationclick', function (event) {
+    console.log('Click en notificación:', event);
+    event.notification.close();
+
+    event.waitUntil(
+        clients.openWindow('/')
+            .then(() => console.log('Ventana abierta'))
+            .catch(error => console.error('Error al abrir ventana:', error))
+    );
+});

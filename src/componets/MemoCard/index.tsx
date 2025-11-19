@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Image from "next/image"
 
 interface Props {
   img: string,
@@ -11,7 +12,7 @@ export default function MemoCard({ img }: Props) {
   const noFlipStyle = { width: 150, height: 150, border: "1px solid white", backgroundColor: 'red' }
   return (
     <div style={isFlipped ? noFlipStyle : flipStyle} onClick={() => setIsFlipped(!isFlipped)}>
-      <img src={img} height="100px" width={"100px"} alt='none' style={isFlipped ? { display: 'none' } : { margin: "25px" }} />
+      <Image src={img} height={100} width={100} alt='none' style={isFlipped ? { display: 'none' } : { margin: "25px" }} />
     </div>
   )
 }

@@ -6,8 +6,8 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#fff" />
-        <ColorSchemeScript />
+        <meta name="theme-color" content="#724949" />
+        <ColorSchemeScript defaultColorScheme="dark" />
       </Head>
       <body>
         <Main />

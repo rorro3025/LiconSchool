@@ -1,16 +1,7 @@
-//import fetch2 from "node-fetch"
+import { TaskResult } from '@/interfaces/server';
 import { useState } from 'react'
-
-interface SuccessResponse {
-  success: true }
-
-interface FailResponse {
-  success: false,
-  message: string
-}
-
-type APIResponse = SuccessResponse | FailResponse
-
+import jwt from 'jsonwebtoken'
+import { NextApiRequest } from 'next';
 
 export const getStatus = async (url: string): Promise<boolean> => {
   const response = await fetch(url);
@@ -30,11 +21,11 @@ export const swrFetcher = async (url: string) => {
 export const makeHTTPRequest = async (url: string, config: {
   method: string,
   body?: any
-}): Promise<APIResponse> => {
+}): Promise<TaskResult<{ success: true, data: any }>> => {
   const applyConfig = {
     ...config,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json'
     },
   }
 
@@ -45,12 +36,13 @@ export const makeHTTPRequest = async (url: string, config: {
   try {
     const response = await fetch(url, applyConfig);
     const data = await response.json();
-    if(data.message!== 'Success') return {
+    if (data.message !== 'Success') return {
       success: false,
       message: data.message
     }
     return {
-      success: true
+      success: true,
+      data: data.data
     }
   } catch (e) {
     return {
@@ -58,8 +50,6 @@ export const makeHTTPRequest = async (url: string, config: {
       message: String(e)
     }
   }
-
-
 }
 
 export const useBoolean = () => {
@@ -83,4 +73,19 @@ export const useBoolean = () => {
     setTrue,
     setFalse,
   } as const;
+}
+export const tokenValidation = (req: NextApiRequest) => {
+  try {
+    if (!req.headers.authorization) return false
+    const sessionToken = req.headers.authorization.split(' ')[1]
+    // session token should be validated here
+    if (!sessionToken) return false
+    const decoded = jwt.decode(req.cookies.refreshToken as string)
+    console.log('session token', sessionToken)
+    console.log('refresh token decoded', decoded)
+    return true
+  } catch (e) {
+    console.log(e)
+    return false
+  }
 }

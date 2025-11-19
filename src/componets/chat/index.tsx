@@ -36,7 +36,7 @@ export default function Chat({ name }: Props) {
             socket.current.onclose = onSocketOpen
             socket.current.onmessage = onSocketMessage
         }
-    }, [])
+    }, [onSocketMessage, onSocketOpen])
     
     useEffect(() => {
         return () => {
@@ -44,7 +44,7 @@ export default function Chat({ name }: Props) {
                 socket.current.close()
             }
         }
-    }, [])
+    },[onSocketMessage,onSocketOpen])
 
     return (
         <div>

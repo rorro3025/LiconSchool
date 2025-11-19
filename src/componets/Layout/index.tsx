@@ -1,21 +1,35 @@
-import { ReactNode } from 'react'
-import Navbar from '../Navbar'
-import {Box, Center} from '@mantine/core'
+import { ReactNode } from "react";
+import Navbar from "../Navbar";
+import { Grid } from "@mantine/core";
+import OfflineHeader from "../OfflineHeader";
+import Head from 'next/head'
 
 interface Props {
-    children: ReactNode
+  children: ReactNode;
+  title?: string
 }
 
-function Layout({children}:Props) {
+//
+
+function Layout({ children, title }: Props) {
   return (
-  <Box>
-    <header>PWA Test</header>
-    <Navbar />
-    <Center>
-        {children}
-    </Center>
-  </Box>
-  )
+    <Grid>
+      <Head>
+        <title>{title || 'LiconSchool'}</title>
+        <meta name="description" content="An offline first app using Next.js and Mantine" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Grid.Col>
+        <OfflineHeader />
+        <Grid>
+          <Navbar />
+          <Grid.Col span={12} style={{ padding: "20px" }}>
+            {children}
+          </Grid.Col>
+        </Grid>
+      </Grid.Col>
+    </Grid>
+  );
 }
 
-export default Layout
+export default Layout;
