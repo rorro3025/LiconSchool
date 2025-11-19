@@ -51,6 +51,7 @@ function Home() {
         }
     };
 
+    /*
     useEffect(() => {
         const fetchData = async () => {
             const cachedData = await getData("1");
@@ -63,7 +64,7 @@ function Home() {
         };
         fetchData().then((r) => console.log("fetch response", r));
     }, []);
-
+    */
     return (
         <Layout>
             <Stack gap="xl">

@@ -85,6 +85,7 @@ export default function Navbar() {
           label={isLogin ? isLogin.username : 'Icon'}
           leftSection={<IconHomeBitcoin size="1rem" stroke={1.5} />}
         />
+        <NavLink href="/Calendar" label={"Google Calendar"} />
         <NavLink href={"/sql"} label={"sql"} />
         <NavLink href={"/files"} label={"files"} />
         <NavLink href={"/libreApi"} label={"libre list"} />

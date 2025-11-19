@@ -1,32 +1,38 @@
 import { TaskResult } from "@/interfaces/server";
-import {  QueryCommandInput } from "@aws-sdk/lib-dynamodb";
+import { QueryCommandInput } from "@aws-sdk/lib-dynamodb";
 import { CONSTANS } from "@/config/DDBConstans";
 import { execQueryCommand } from "@/utils/aws";
 
-export class AuthDTO  {
+interface UserLogginI {
+    username: string
+    email: string,
+    id: string
+}
+export class AuthDTO {
 
-    static async login(username: string, password: string):Promise<TaskResult<{success: true}>> {
+    static async login(username: string, password: string): Promise<TaskResult<{ success: true, data: UserLogginI }>> {
         const params: QueryCommandInput = {
             TableName: CONSTANS.DB_NAMES.USERS,
             IndexName: "username-id-index",
             ExpressionAttributeNames: {
-                "#nm": "username"
+                "#nm": "username",
+                "#id": "id"
             },
             KeyConditionExpression: "#nm = :um",
+            ProjectionExpression: "#nm, password, email, #id",
             ExpressionAttributeValues: {
                 ":um": username
             }
         }
-        const searchResponse = await execQueryCommand<{username:string, password:string}>(params)
-        console.log(searchResponse)
-         if(!searchResponse.success) return searchResponse
-        if(!searchResponse.data[0]) return {success: false,message: "You don´t exists :(" }
+        const searchResponse = await execQueryCommand<UserLogginI & { password: string }>(params)
+        if (!searchResponse.success) return searchResponse
+        if (!searchResponse.data[0]) return { success: false, message: "You don´t exists :(" }
         const currentUser = searchResponse.data[0]
-        if(currentUser.password !== password) return {
-               success: false,
-               message: 'Verifica tus credenciales' 
+        if (currentUser.password !== password) return {
+            success: false,
+            message: 'Verifica tus credenciales'
         }
-        return {success: true}
+        return { success: true, data: { username: currentUser.username, email: currentUser.email, id: currentUser.id } }
     }
 }
 

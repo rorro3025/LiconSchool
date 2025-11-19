@@ -3,6 +3,7 @@ import { AWSLocation } from "./Location";
 import { randomUUID } from "crypto"
 import { PutCommandInput, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { dynamoDBDocumentClient } from "@/config/aws";
+import { CONSTANS } from "@/config/DDBConstans";
 
 export const getOne = async (req: NextApiRequest, res: NextApiResponse) => {
     const { id } = req.query as { id: string };
@@ -23,16 +24,19 @@ export const getOne = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export const saveRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     const { lat, lgn } = req.body
-    console.log(req.body)
-    const username = 'Rorro'
+    console.log(req.cookies)
+    if (!req.cookies.refreshToken) return res.status(401).json({ message: 'Unauthorized' })
+
+
+    const username = 'rorro'
     const endpoint = new Date().toISOString()
     const id = randomUUID()
 
     const params: PutCommandInput = {
-        TableName: "UserSubscriptionDevelopment",
+        TableName: CONSTANS.DB_NAMES.USER_SESSIONS,
         Item: {
             username,
-            endpoint,
+            createdAt: endpoint,
             id,
             location: { lat, lgn },
             validSub: Math.floor(Date.now() / 1000) + (60 * 5)

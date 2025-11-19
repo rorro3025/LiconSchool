@@ -76,9 +76,13 @@ export const useBoolean = () => {
 }
 export const tokenValidation = (req: NextApiRequest) => {
   try {
-    console.log(req.cookies)
-    console.log(req.headers)
-    //const decoded = jwt.decode(req.cookies)
+    if (!req.headers.authorization) return false
+    const sessionToken = req.headers.authorization.split(' ')[1]
+    // session token should be validated here
+    if (!sessionToken) return false
+    const decoded = jwt.decode(req.cookies.refreshToken as string)
+    console.log('session token', sessionToken)
+    console.log('refresh token decoded', decoded)
     return true
   } catch (e) {
     console.log(e)

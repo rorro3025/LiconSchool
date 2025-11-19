@@ -38,6 +38,8 @@ export function LoginForm() {
 
             setError(null)
             console.log(result)
+	    const localS = window.localStorage;
+	    localS.setItem('bearer', result.sessionToken)
             setIsLogin({ username: result.username, token: result.token })
         } catch (e) {
             console.log(e)
