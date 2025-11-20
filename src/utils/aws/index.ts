@@ -29,7 +29,7 @@ export const execPutCommand = async <E>(params: PutCommandInput): Promise<TaskRe
     }
 }
 
-export const execGetCommand = async <E>(params: GetCommandInput) => {
+export const execGetCommand = async <E>(params: GetCommandInput): Promise<TaskResult<{success: true, data: E}>> => {
     try {
         const result = await dynamoDBDocumentClient.send(new GetCommand(params))
         return {
